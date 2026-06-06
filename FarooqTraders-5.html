@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farooq Traders</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+:root{
+  --g:#0f2417;--g2:#1a3a25;--g3:#2d6248;--gold:#c8a84b;--goldd:#e8c97a;
+  --bg:#f4efe6;--bg2:#ece5d6;--bg3:#ddd4be;--surf:#fff;--surf2:#faf6ef;
+  --tx:#18181b;--tx2:#3f3f46;--tx3:#71717a;
+  --red:#b91c1c;--redl:#fee2e2;--grn:#15803d;--grnl:#dcfce7;
+  --blu:#1d4ed8;--blul:#dbeafe;--ylw:#b45309;--ylwl:#fef3c7;
+  --bdr:#d4c9b0;--sh:0 2px 10px rgba(0,0,0,.07);--sh2:0 8px 30px rgba(0,0,0,.13);
+  --r:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--tx);font-size:13px}
+/* SIDEBAR */
+#sb{position:fixed;left:0;top:0;bottom:0;width:224px;background:var(--g);display:flex;flex-direction:column;z-index:200;box-shadow:3px 0 20px rgba(0,0,0,.2);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+#sb-logo{padding:15px 14px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.18)}
+#sb-logo h1{font-size:14px;font-weight:800;color:var(--gold)}
+#sb-logo p{font-size:10px;color:rgba(255,255,255,.38);margin-top:2px}
+.lsw{display:flex;gap:3px;margin-top:8px}
+.lsw button{flex:1;padding:3px 0;font-size:10px;font-weight:700;border:1px solid rgba(200,168,75,.3);border-radius:4px;cursor:pointer;background:transparent;color:rgba(255,255,255,.45);transition:.2s}
+.lsw button.on{background:var(--gold);color:var(--g);border-color:var(--gold)}
+#sb-nav{flex:1;padding:6px 0;overflow-y:auto}
+.nsec{padding:7px 13px 2px;font-size:9px;font-weight:700;color:rgba(255,255,255,.22);letter-spacing:1.3px;text-transform:uppercase}
+.na{display:flex;align-items:center;gap:7px;padding:7px 13px;color:rgba(255,255,255,.6);font-size:12px;font-weight:500;cursor:pointer;border-left:3px solid transparent;transition:.15s}
+.na:hover{background:rgba(255,255,255,.06);color:#fff}
+.na.on{background:rgba(200,168,75,.12);color:var(--gold);border-left-color:var(--gold)}
+.na .ni{font-size:13px;width:17px;text-align:center}
+#sb-foot{padding:9px 13px;border-top:1px solid rgba(255,255,255,.07);font-size:9px;color:rgba(255,255,255,.22)}
+/* MAIN */
+#main{margin-left:224px;min-height:100vh;transition:margin-left .3s cubic-bezier(.4,0,.2,1)}
+#topbar{background:var(--surf);border-bottom:1px solid var(--bdr);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
+#topbar h2{font-size:15px;font-weight:800;color:var(--g);margin-left:9px}
+#cur-date{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
+.con{padding:18px 22px}
+
+/* HAMBURGER */
+#hb{display:none;background:transparent;border:none;cursor:pointer;padding:7px 9px;border-radius:6px;transition:.2s}
+#hb:hover{background:var(--bg2)}
+#hb svg{width:22px;height:22px;stroke:var(--g);stroke-width:2.5;fill:none;stroke-linecap:round}
+#sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199;opacity:0;transition:opacity .3s}
+#sb-overlay.on{opacity:1}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  #hb{display:inline-flex;align-items:center;justify-content:center}
+  #sb{transform:translateX(-100%);width:260px}
+  #sb.on{transform:translateX(0)}
+  #main{margin-left:0 !important}
+  #sb-overlay{display:block}
+  #topbar{padding:9px 13px}
+  #topbar h2{font-size:13px;margin-left:5px}
+  #cur-date{font-size:10px}
+  .con{padding:11px 13px}
+  .card{margin-bottom:11px}
+  .ch{padding:9px 12px}
+  .cb{padding:11px 12px}
+  .sg4,.sg3,.sg2{grid-template-columns:1fr 1fr !important;gap:8px}
+  .sc{padding:11px 12px}
+  .sc .am{font-size:15px}
+  .fg2,.fg3,.fg4,.fg5{grid-template-columns:1fr 1fr !important}
+  .fg5 > *{min-width:0}
+  table{font-size:11px}
+  th,td{padding:5px 6px}
+  .mod{width:97vw !important;max-height:95vh;overflow-y:auto}
+  .modlg{width:97vw !important}
+  .mc{padding:13px}
+  .pzn{padding:9px}
+  .pitem{width:54px;height:54px}
+  .na{padding:8px 13px;font-size:12px}
+  .list-scroll{max-height:340px}
+  .batch-detail-grid{grid-template-columns:1fr 1fr !important}
+}
+@media (max-width: 480px) {
+  .sg4,.sg3,.sg2{grid-template-columns:1fr !important}
+  .fg2,.fg3,.fg4,.fg5{grid-template-columns:1fr !important}
+  .pitem{width:46px;height:46px}
+  #topbar h2{font-size:12px}
+  .btn{padding:6px 11px;font-size:11px}
+}
+.page{display:none}.page.on{display:block}
+/* CARDS */
+.card{background:var(--surf);border-radius:var(--r);border:1px solid var(--bdr);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden}
+.ch{padding:11px 15px;border-bottom:1px solid var(--bdr);background:var(--surf2);display:flex;align-items:center;justify-content:space-between}
+.ch h3{font-size:12px;font-weight:700;color:var(--g)}
+.cb{padding:14px 15px}
+/* STATS */
+.sg{display:grid;gap:11px;margin-bottom:14px}
+.sg4{grid-template-columns:repeat(4,1fr)}.sg3{grid-template-columns:repeat(3,1fr)}.sg2{grid-template-columns:1fr 1fr}
+.sc{background:var(--surf);border-radius:var(--r);padding:13px 15px;border:1px solid var(--bdr);box-shadow:var(--sh);position:relative;overflow:hidden}
+.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold)}
+.sc.grn::after{background:var(--grn)}.sc.red::after{background:var(--red)}.sc.blu::after{background:var(--blu)}.sc.ylw::after{background:var(--ylw)}
+.sc h3{font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.6px}
+.sc .am{font-size:18px;font-weight:800;color:var(--g);font-family:'JetBrains Mono',monospace;margin-top:3px}
+/* TABLES */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg2);padding:7px 9px;font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);text-align:left;white-space:nowrap}
+td{padding:7px 9px;border-bottom:1px solid var(--bg2);font-size:12px;color:var(--tx);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+.nm{font-family:'JetBrains Mono',monospace;text-align:right}
+.tft td{background:var(--bg2);font-weight:700;border-top:2px solid var(--bdr)}
+/* BADGES */
+.bdg{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700}
+.bgg{background:var(--grnl);color:var(--grn)}.brr{background:var(--redl);color:var(--red)}
+.bbb{background:var(--blul);color:var(--blu)}.byy{background:var(--ylwl);color:var(--ylw)}
+/* FORMS */
+.fg{display:grid;gap:9px}
+.fg2{grid-template-columns:1fr 1fr}.fg3{grid-template-columns:1fr 1fr 1fr}.fg4{grid-template-columns:1fr 1fr 1fr 1fr}.fg5{grid-template-columns:1fr 1fr 1fr 1fr 1fr}
+.fl label{display:block;font-size:10px;font-weight:700;color:var(--tx2);margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+.fl input,.fl select,.fl textarea{width:100%;padding:7px 9px;border:1.5px solid var(--bdr);border-radius:7px;font-family:'Sora',sans-serif;font-size:12px;color:var(--tx);background:var(--surf2);outline:none;transition:.15s}
+.fl input:focus,.fl select:focus{border-color:var(--g3);background:#fff}
+.fl input[readonly]{background:var(--bg2);color:var(--tx2)}
+/* AUTOCOMPLETE */
+.acw{position:relative}
+.acl{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid var(--bdr);border-top:none;border-radius:0 0 7px 7px;max-height:160px;overflow-y:auto;z-index:600;box-shadow:var(--sh2);display:none}
+.acl.on{display:block}
+.aci{padding:7px 9px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--bg2)}
+.aci:hover,.aci:active{background:var(--bg2)}
+.aci .an{font-weight:700;color:var(--g)}
+.aci .as{font-size:10px;color:var(--tx3)}
+/* BUTTONS */
+.btn{padding:7px 13px;border-radius:7px;font-family:'Sora',sans-serif;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:.15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.bp{background:var(--g);color:#fff}.bp:hover{background:var(--g3)}
+.ba{background:var(--gold);color:var(--g)}.ba:hover{background:var(--goldd)}
+.br2{background:var(--red);color:#fff}
+.bo{background:transparent;border:1.5px solid var(--bdr);color:var(--tx2)}.bo:hover{border-color:var(--g);color:var(--g)}
+.bgg2{background:var(--grn);color:#fff}
+.bsm{padding:4px 9px;font-size:11px}.bxs{padding:2px 6px;font-size:10px}
+/* CALC BOX */
+.cbox{background:linear-gradient(135deg,var(--g) 0%,var(--g3) 100%);border-radius:var(--r);padding:13px 15px;color:#fff;margin-top:11px}
+.cbox h4{font-size:9px;font-weight:700;opacity:.55;text-transform:uppercase;letter-spacing:.8px;margin-bottom:9px}
+.cr{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:11px;color:#e8eef0}
+.cr:last-child{border:none}
+.cr.tot{font-size:13px;font-weight:800;color:var(--gold);padding-top:7px}
+.cr.pl-pos{font-size:13px;font-weight:800;color:#4ade80;padding-top:7px}
+.cr.pl-neg{font-size:13px;font-weight:800;color:#f87171;padding-top:7px}
+.cr .cv{font-family:'JetBrains Mono',monospace;color:#fff;font-weight:600}
+/* MODAL */
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.mov.on{display:flex}
+.mod{background:var(--surf);border-radius:13px;width:860px;max-width:97vw;box-shadow:var(--sh2);animation:mIn .2s ease;margin:auto}
+.modlg{width:1050px}
+@keyframes mIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+.mh{padding:13px 17px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;background:var(--surf2);border-radius:13px 13px 0 0;position:sticky;top:0;z-index:10}
+.mh h3{font-size:13px;font-weight:800;color:var(--g)}
+.mc{padding:17px}
+.mf{padding:11px 17px;border-top:1px solid var(--bdr);display:flex;justify-content:flex-end;gap:7px;background:var(--surf2);border-radius:0 0 13px 13px}
+.mcl{background:none;border:none;font-size:17px;cursor:pointer;color:var(--tx3);padding:2px 5px;border-radius:5px}
+.mcl:hover{background:var(--bg2)}
+/* TABS */
+.tabs{display:flex;gap:3px;border-bottom:2px solid var(--bdr);margin-bottom:14px}
+.tb{padding:6px 13px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--tx3);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.15s;border-radius:4px 4px 0 0}
+.tb.on{color:var(--g);border-bottom-color:var(--g);background:var(--surf2)}
+.tb:hover:not(.on){background:var(--bg2);color:var(--tx)}
+/* ALERTS */
+.ali{background:var(--blul);color:var(--blu);border:1px solid #bfdbfe;padding:8px 12px;border-radius:7px;font-size:11px;margin-bottom:10px}
+.alw{background:var(--ylwl);color:var(--ylw);border:1px solid #fcd34d;padding:8px 12px;border-radius:7px;font-size:11px;margin-bottom:10px}
+/* SELLER ROW */
+.prow{background:var(--surf2);border:1px solid var(--bdr);border-radius:8px;padding:11px 12px;margin-bottom:8px;position:relative}
+.prow .pdel{position:absolute;top:7px;right:8px}
+.prc{background:var(--bg2);border-radius:6px;padding:7px 9px;margin-top:7px;font-size:11px;font-family:'JetBrains Mono',monospace}
+.prc .pr{display:flex;justify-content:space-between;padding:1px 0;color:var(--tx2);font-size:10px;flex-wrap:wrap;gap:4px}
+.prc .pt{font-weight:700;color:var(--g);border-top:1px solid var(--bdr);padding-top:3px;margin-top:3px;font-size:11px;display:flex;justify-content:space-between}
+/* SECTION HEADERS */
+.sec-hd{font-size:12px;font-weight:800;color:var(--g);padding:8px 0 6px;border-bottom:2px solid var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.sep{height:1px;background:var(--bdr);margin:13px 0}
+/* SLIPS */
+.pzn{border:2px dashed var(--bdr);border-radius:8px;padding:12px;text-align:center;cursor:pointer;background:var(--bg);font-size:12px;color:var(--tx3);transition:.2s}
+.pzn:hover{border-color:var(--g3);background:var(--surf2)}
+.pgrid{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.pitem{position:relative;width:64px;height:64px}
+.pitem img{width:100%;height:100%;object-fit:cover;border-radius:6px;border:1px solid var(--bdr);cursor:pointer}
+.pdx{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;border:none;border-radius:50%;width:15px;height:15px;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+/* MISC */
+.empty{text-align:center;padding:28px;color:var(--tx3)}
+.ei{font-size:30px;margin-bottom:7px}
+.tg{color:var(--grn)}.tr{color:var(--red)}.fw7{font-weight:700}.fw8{font-weight:800}
+.mt1{margin-top:4px}.mt2{margin-top:8px}.mt3{margin-top:13px}
+.fb{display:flex;justify-content:space-between;align-items:center}
+.acc-hd{padding:10px 13px;background:var(--bg2);display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-bottom:1px solid var(--bdr)}
+.acc-hd:hover{background:var(--bg3)}
+.acc-bd{display:none}.acc-bd.on{display:block}
+.srch{display:flex;gap:7px;margin-bottom:11px}
+.srch input{flex:1;padding:7px 11px;border:1.5px solid var(--bdr);border-radius:7px;font-size:12px;background:var(--surf2);outline:none}
+.plpos{color:var(--grn);font-weight:800}.plneg{color:var(--red);font-weight:800}
+/* STOCK ENTRY IN BATCH */
+.stk-row{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:10px 12px;margin-bottom:6px;position:relative}
+/* SCROLLABLE LISTS (viewport fits exactly 10 rows, scroll for rest) */
+.list-scroll{overflow-y:auto;max-height:380px}
+.list-scroll table{border-collapse:separate;border-spacing:0}
+.list-scroll thead th{position:sticky;top:0;z-index:5;background:var(--bg2)}
+.list-scroll tr:last-child td{border-bottom:1px solid var(--bg2)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+#toast{position:fixed;bottom:18px;right:18px;background:var(--g);color:#fff;padding:9px 15px;border-radius:8px;font-size:12px;font-weight:600;z-index:9999;display:none;border-left:4px solid var(--gold);box-shadow:var(--sh2)}
+</style>
+</head>
+<body>
+<div id="sb-overlay" onclick="closeNav()"></div>
+<div id="sb">
+  <div id="sb-logo">
+    <h1>🌾 Farooq Traders</h1>
+    <p>Mohsin Mehmood · Arhaat</p>
+    <div class="lsw">
+      <button id="ben" class="on" onclick="setLang('e')">English</button>
+      <button id="bur" onclick="setLang('u')">اردو</button>
+    </div>
+  </div>
+  <div id="sb-nav">
+    <div class="nsec">OVERVIEW</div>
+    <div class="na on" data-pg="dash" onclick="go('dash')"><span class="ni">📊</span><span>Dashboard</span></div>
+    <div class="na" data-pg="parties" onclick="go('parties')"><span class="ni">👥</span><span>Parties</span></div>
+    <div class="nsec">ACCOUNTS</div>
+    <div class="na" data-pg="khata" onclick="go('khata')"><span class="ni">📒</span><span>Khata Register</span></div>
+    <div class="na" data-pg="cf" onclick="go('cf')"><span class="ni">💰</span><span>Cash Flow</span></div>
+    <div class="nsec">WHEAT گندم</div>
+    <div class="na" data-pg="wp" onclick="go('wp')"><span class="ni">🌾</span><span>Purchase & Sale</span></div>
+    <div class="na" data-pg="wa" onclick="go('wa')"><span class="ni">🤝</span><span>Agent Register</span></div>
+    <div class="na" data-pg="wst" onclick="go('wst')"><span class="ni">🏬</span><span>Stock Register</span></div>
+    <div class="nsec">COTTON کپاس</div>
+    <div class="na" data-pg="cp" onclick="go('cp')"><span class="ni">🌸</span><span>Purchase & Sale</span></div>
+    <div class="na" data-pg="ca" onclick="go('ca')"><span class="ni">🤝</span><span>Agent Register</span></div>
+    <div class="na" data-pg="cst" onclick="go('cst')"><span class="ni">🏬</span><span>Stock Register</span></div>
+    <div class="nsec">REPORTS</div>
+    <div class="na" data-pg="comm" onclick="go('comm')"><span class="ni">💼</span><span>Commission</span></div>
+  </div>
+  <div id="sb-foot">Farooq Traders © 2025</div>
+</div>
+
+<div id="main">
+  <div id="topbar">
+    <button id="hb" onclick="toggleNav()" aria-label="Menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <h2 id="pgtitle">Dashboard</h2>
+    <span id="cur-date"></span>
+  </div>
+  <div class="con">
+
+<!-- DASHBOARD -->
+<div id="page-dash" class="page on">
+  <div class="sg sg4" id="d-stats"></div>
+  <div class="sg sg2">
+    <div class="card"><div class="ch"><h3>📈 Profit / Loss</h3></div><div class="cb" id="d-pl"></div></div>
+    <div class="card"><div class="ch"><h3>📦 Stock Summary</h3></div><div class="cb" id="d-stk"></div></div>
+  </div>
+  <div class="card"><div class="ch"><h3>📒 Recent Khata</h3></div>
+    <div class="tw"><table><thead><tr><th>Name</th><th>Detail</th><th>Given ₨</th><th>Taken ₨</th><th>Balance ₨</th></tr></thead>
+    <tbody id="d-ktb"></tbody></table></div>
+  </div>
+</div>
+
+<!-- PARTIES -->
+<div id="page-parties" class="page">
+  <div class="fb mt2" style="margin-bottom:12px">
+    <div class="tabs" style="margin:0">
+      <button class="tb on" onclick="ptab('list')">All Parties</button>
+      <button class="tb" onclick="ptab('add')">+ Add Party</button>
+    </div>
+    <div class="srch" style="margin:0;width:240px"><input id="psrch" placeholder="Search..." oninput="rParties()"></div>
+  </div>
+  <div id="pt-list">
+    <div class="sg sg3">
+      <div><div class="bdg bgg" style="margin-bottom:8px">Sellers / Farmers</div><div id="pl-sel"></div></div>
+      <div><div class="bdg bbb" style="margin-bottom:8px">Buyers / Factories</div><div id="pl-buy"></div></div>
+      <div><div class="bdg byy" style="margin-bottom:8px">Agents / Others</div><div id="pl-oth"></div></div>
+    </div>
+  </div>
+  <div id="pt-add" style="display:none">
+    <div class="card"><div class="ch"><h3>👤 Add / Edit Party</h3></div><div class="cb">
+      <div class="fg fg3">
+        <div class="fl"><label>Full Name *</label><input id="pa-nm" placeholder="Full name"></div>
+        <div class="fl"><label>Contact</label><input id="pa-ct" placeholder="03xx-xxxxxxx"></div>
+        <div class="fl"><label>Category *</label><select id="pa-cat">
+          <option value="seller">Seller / Farmer</option>
+          <option value="buyer">Buyer / Factory</option>
+          <option value="agent">Agent / Broker</option>
+          <option value="other">Other</option>
+        </select></div>
+      </div>
+      <div class="fg fg2 mt2">
+        <div class="fl"><label>Address</label><input id="pa-ad" placeholder="Village / City"></div>
+        <div class="fl"><label>Notes</label><input id="pa-nt" placeholder="Any notes..."></div>
+      </div>
+      <input type="hidden" id="pa-eid">
+      <div class="mt3">
+        <button class="btn bp" onclick="saveParty()">💾 Save Party</button>
+        <button class="btn bo" style="margin-left:7px" onclick="clearPF()">Clear</button>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- KHATA -->
+<div id="page-khata" class="page">
+  <div class="fb" style="margin-bottom:12px">
+    <div class="tabs" style="margin:0">
+      <button class="tb on" onclick="ktab('list')">All Accounts</button>
+      <button class="tb" onclick="ktab('new')">+ New Entry</button>
+    </div>
+    <div class="srch" style="margin:0;width:240px"><input id="ksrch" placeholder="Search name..." oninput="rKhata()"></div>
+  </div>
+  <div id="kt-l"><div id="khata-list"></div></div>
+  <div id="kt-n" style="display:none">
+    <div class="card"><div class="ch"><h3>📒 New Khata Entry</h3></div><div class="cb">
+      <div class="fg fg3">
+        <div class="fl"><label>Name *</label>
+          <div class="acw"><input id="kh-nm" placeholder="Party name" oninput="acs(this,'khl',null)" autocomplete="off">
+          <div class="acl" id="khl"></div></div>
+        </div>
+        <div class="fl"><label>Date</label><input type="date" id="kh-dt"></div>
+        <div class="fl"><label>Type</label><select id="kh-tp">
+          <option value="manual">Manual</option>
+          <option value="payment">Payment Given</option>
+          <option value="receipt">Receipt Taken</option>
+        </select></div>
+      </div>
+      <div class="fg fg2 mt2">
+        <div class="fl"><label>Amount Given (دی) ₨</label><input type="number" id="kh-gv" placeholder="0" oninput="calcKH()"></div>
+        <div class="fl"><label>Amount Taken (لی) ₨</label><input type="number" id="kh-tk" placeholder="0" oninput="calcKH()"></div>
+      </div>
+      <div class="fl mt2"><label>Detail / Note</label><input id="kh-nt" placeholder="Transaction detail..."></div>
+      <div id="kh-c" class="cbox mt2" style="display:none">
+        <div class="cr"><span>Given (+)</span><span class="cv tg" id="khc-g">0</span></div>
+        <div class="cr"><span>Taken (-)</span><span class="cv tr" id="khc-t">0</span></div>
+        <div class="cr tot"><span>Balance</span><span class="cv" id="khc-b">0</span></div>
+      </div>
+      <input type="hidden" id="kh-eid">
+      <div class="mt3"><button class="btn bp" onclick="saveKH()">💾 Save Entry</button></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- CASH FLOW -->
+<div id="page-cf" class="page">
+  <div class="tabs">
+    <button class="tb on" onclick="cftab('in')">📥 Cash In</button>
+    <button class="tb" onclick="cftab('out')">📤 Cash Out</button>
+    <button class="tb" onclick="cftab('sum')">📊 Summary</button>
+  </div>
+  <div id="cf-in">
+    <div class="card"><div class="ch"><h3>📥 Cash In</h3><span class="bdg bgg" id="ci-ttl">₨0</span></div><div class="cb">
+      <div class="fg fg3">
+        <div class="fl"><label>Date</label><input type="date" id="ci-dt"></div>
+        <div class="fl"><label>From (Name)</label>
+          <div class="acw"><input id="ci-fr" placeholder="Source name" oninput="acs(this,'cil',null)" autocomplete="off">
+          <div class="acl" id="cil"></div></div>
+        </div>
+        <div class="fl"><label>Amount ₨</label><input type="number" id="ci-am" placeholder="0"></div>
+      </div>
+      <div class="fl mt2"><label>Detail</label><input id="ci-de" placeholder="Details..."></div>
+      <input type="hidden" id="ci-eid">
+      <div class="mt3"><button class="btn bgg2" onclick="savCI()">💾 Save Cash In</button></div>
+    </div></div>
+    <div class="card" style="overflow:hidden"><div class="tw">
+      <table><thead><tr><th>Date</th><th>From</th><th>Detail</th><th>Amount ₨</th><th>Edit</th><th>Del</th></tr></thead>
+      <tbody id="ci-tb"></tbody></table>
+    </div></div>
+  </div>
+  <div id="cf-out" style="display:none">
+    <div class="card"><div class="ch"><h3>📤 Cash Out</h3><span class="bdg brr" id="co-ttl">₨0</span></div><div class="cb">
+      <div class="fg fg3">
+        <div class="fl"><label>Date</label><input type="date" id="co-dt"></div>
+        <div class="fl"><label>To (Name)</label>
+          <div class="acw"><input id="co-to" placeholder="Paid to..." oninput="acs(this,'col',null)" autocomplete="off">
+          <div class="acl" id="col"></div></div>
+        </div>
+        <div class="fl"><label>Amount ₨</label><input type="number" id="co-am" placeholder="0"></div>
+      </div>
+      <div class="fl mt2"><label>Detail</label><input id="co-de" placeholder="Details..."></div>
+      <input type="hidden" id="co-eid">
+      <div class="mt3"><button class="btn br2" onclick="savCO()">💾 Save Cash Out</button></div>
+    </div></div>
+    <div class="card" style="overflow:hidden"><div class="tw">
+      <table><thead><tr><th>Date</th><th>To</th><th>Detail</th><th>Amount ₨</th><th>Edit</th><th>Del</th></tr></thead>
+      <tbody id="co-tb"></tbody></table>
+    </div></div>
+  </div>
+  <div id="cf-sum" style="display:none">
+    <div class="sg sg3">
+      <div class="sc grn"><h3>Total Cash In</h3><div class="am" id="cfs-i">₨0</div></div>
+      <div class="sc red"><h3>Total Cash Out</h3><div class="am" id="cfs-o">₨0</div></div>
+      <div class="sc"><h3>Net Balance</h3><div class="am" id="cfs-n">₨0</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHEAT PURCHASE & SALE -->
+<div id="page-wp" class="page">
+  <div class="fb" style="margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--g)">🌾 Wheat — Purchase & Sale Batches</h3>
+    <button class="btn ba" id="wp-new-btn" onclick="openWBatch('wheat')">+ New Batch</button>
+  </div>
+  <div id="wp-list"></div>
+</div>
+
+<!-- WHEAT AGENT -->
+<div id="page-wa" class="page">
+  <div class="fb" style="margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--g)">🤝 Wheat Agent Register</h3>
+    <button class="btn ba" onclick="openMod('m-wa')">+ New Entry</button>
+  </div>
+  <div class="card" style="overflow:hidden"><div class="tw">
+    <table><thead><tr><th>Date</th><th>Agent</th><th>Net KG</th><th>Net Mands</th><th>Factory Rate ₨</th><th>My Comm/M ₨</th><th>Factory</th><th>Selling Amt ₨</th><th>Agent Pay ₨</th><th>My Comm ₨</th><th>Edit</th><th>Del</th></tr></thead>
+    <tbody id="wa-tb"></tbody></table>
+  </div></div>
+</div>
+
+<!-- WHEAT STOCK -->
+<div id="page-wst" class="page">
+  <div class="fb" style="margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--g)">🏬 Wheat Stock Register</h3>
+    <button class="btn ba" onclick="openMod('m-wst')">+ Add Stock</button>
+  </div>
+  <div class="sg sg3" id="wst-sum"></div>
+  <div class="card" style="overflow:hidden"><div class="tw">
+    <table><thead><tr><th>Date</th><th>Seller</th><th>Total Bags</th><th>Remaining</th><th>Weight(kg)</th><th>Rate/Mand ₨</th><th>Rem. Value ₨</th><th>Edit</th><th>Del</th></tr></thead>
+    <tbody id="wst-tb"></tbody></table>
+  </div></div>
+</div>
+
+<!-- COTTON PURCHASE & SALE -->
+<div id="page-cp" class="page">
+  <div class="fb" style="margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--g)">🌸 Cotton — Purchase & Sale Batches</h3>
+    <button class="btn ba" onclick="openWBatch('cotton')">+ New Batch</button>
+  </div>
+  <div id="cp-list"></div>
+</div>
+
+<!-- COTTON AGENT -->
+<div id="page-ca" class="page">
+  <div class="fb" style="margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--g)">🤝 Cotton Agent Register</h3>
+    <button class="btn ba" onclick="openMod('m-ca')">+ New Entry</button>
+  </div>
+  <div class="card" style="overflow:hidden"><div class="tw">
+    <table><thead><tr><th>Date</th><th>Agent</th><th>Net KG</th><th>Net Mands</th><th>Factory Rate ₨</th><th>My Comm/M ₨</th><th>Factory</th><th>Selling Amt ₨</th><th>Agent Pay ₨</th><th>My Comm ₨</th><th>Edit</th><th>Del</th></tr></thead>
+    <tbody id="ca-tb"></tbody></table>
+  </div></div>
+</div>
+
+<!-- COTTON STOCK -->
+<div id="page-cst" class="page">
+  <div class="fb" style="margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--g)">🏬 Cotton Stock Register</h3>
+    <button class="btn ba" onclick="openMod('m-cst')">+ Add Stock</button>
+  </div>
+  <div class="sg sg3" id="cst-sum"></div>
+  <div class="card" style="overflow:hidden"><div class="tw">
+    <table><thead><tr><th>Date</th><th>Seller</th><th>Total Mands</th><th>Remaining</th><th>Weight(kg)</th><th>Rate/Mand ₨</th><th>Rem. Value ₨</th><th>Edit</th><th>Del</th></tr></thead>
+    <tbody id="cst-tb"></tbody></table>
+  </div></div>
+</div>
+
+<!-- COMMISSION -->
+<div id="page-comm" class="page">
+  <div class="card"><div class="ch"><h3>💼 Cotton Factory Commission (1%)</h3><span class="bdg bgg" id="comm-ttl">Total: ₨0</span></div>
+    <div class="tw"><table><thead><tr><th>Date</th><th>Batch</th><th>Factory</th><th>Mands Sold</th><th>Sale Amt ₨</th><th>1% Comm ₨</th></tr></thead>
+    <tbody id="comm-tb"></tbody></table></div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!-- ===================== BATCH MODAL (Wheat + Cotton) ===================== -->
+<div class="mov" id="m-batch">
+<div class="mod modlg">
+<div class="mh"><h3 id="batch-modal-title">🌾 Wheat Batch — Purchase & Sale</h3><button class="mcl" onclick="closeMod('m-batch')">✕</button></div>
+<div class="mc">
+  <!-- SECTION 1: BATCH INFO -->
+  <div class="sec-hd">📋 Batch Info</div>
+  <div class="fg fg3">
+    <div class="fl"><label>Date</label><input type="date" id="b-dt"></div>
+    <div class="fl"><label>Batch Reference / Trolly #</label><input id="b-rf" placeholder="e.g. Trolly #1, May 25"></div>
+    <div class="fl"><label>Note</label><input id="b-nt" placeholder="Any general note..."></div>
+  </div>
+
+  <!-- SECTION 2: FARMERS PURCHASE -->
+  <div class="sep"></div>
+  <div class="sec-hd" style="justify-content:space-between">
+    <span>👨‍🌾 Step 1: Farmers Purchase</span>
+    <button class="btn ba bsm" id="add-seller-btn" onclick="addSellerRow()">+ Add Farmer</button>
+  </div>
+  <div class="ali" id="batch-ded-hint"></div>
+  <div id="sellers-list"></div>
+
+  <!-- SECTION 3: EXPENSES -->
+  <div class="sep"></div>
+  <div class="sec-hd">💸 Step 2: Expenses</div>
+  <div class="fg fg5" id="exp-grid">
+    <div class="fl"><label id="lab-lbl">Labour (₨/bag)</label><input type="number" id="b-lab" value="0" oninput="calcBatch()"></div>
+    <div class="fl"><label>Fuel (₨ total)</label><input type="number" id="b-fuel" value="0" oninput="calcBatch()"></div>
+    <div class="fl" id="bags-exp-div"><label>Bags Cost (₨/bag)</label><input type="number" id="b-bag" value="0" oninput="calcBatch()"></div>
+    <div class="fl"><label>Extra Expense (₨)</label><input type="number" id="b-ext" value="0" oninput="calcBatch()"></div>
+    <div></div>
+  </div>
+  <div class="fg fg3 mt2">
+    <div class="fl"><label>Broker Commission</label>
+      <select id="b-bkt" onchange="calcBatch()">
+        <option value="none">No Broker</option>
+        <option value="perunit">Per Bag/Mand ₨</option>
+        <option value="fixed">Fixed Amount ₨</option>
+      </select>
+    </div>
+    <div class="fl"><label>Broker Amount</label><input type="number" id="b-bka" value="0" oninput="calcBatch()"></div>
+    <div></div>
+  </div>
+
+  <!-- SECTION 4: STOCK ADD -->
+  <div class="sep"></div>
+  <div class="sec-hd" style="justify-content:space-between">
+    <span>🏬 Step 3: Add Stock to Batch (Optional)</span>
+    <button class="btn ba bsm" id="add-stock-btn" onclick="addStockRow()">+ Add Stock</button>
+  </div>
+  <div class="alw" id="stock-hint">Stock bags/mands added here will be loaded onto this trolly. Labour for stock is separate.</div>
+  <div id="stock-rows-list"></div>
+
+  <!-- PURCHASE SUMMARY -->
+  <div id="batch-pur-calc" class="cbox mt2" style="display:none">
+    <h4>PURCHASE SUMMARY</h4>
+    <div class="cr"><span id="bc-unit-lbl">Total Bags</span><span class="cv" id="bc-units">0</span></div>
+    <div class="cr"><span>Total Net Weight</span><span class="cv" id="bc-wt">0</span></div>
+    <div class="cr"><span>Farmers Payment</span><span class="cv tr" id="bc-sp">0</span></div>
+    <div class="cr"><span>Labour</span><span class="cv tr" id="bc-lab">0</span></div>
+    <div class="cr"><span>Fuel</span><span class="cv tr" id="bc-fuel">0</span></div>
+    <div class="cr" id="bc-bag-row"><span>Bags Expense</span><span class="cv tr" id="bc-bag">0</span></div>
+    <div class="cr"><span>Broker Commission</span><span class="cv tr" id="bc-bk">0</span></div>
+    <div class="cr"><span>Extra Expense</span><span class="cv tr" id="bc-ext">0</span></div>
+    <div class="cr"><span>Stock Cost (loaded)</span><span class="cv tr" id="bc-stk">0</span></div>
+    <div class="cr"><span>Stock Labour</span><span class="cv tr" id="bc-slab">0</span></div>
+    <div class="cr tot"><span>TOTAL PURCHASE COST ₨</span><span class="cv" id="bc-tot">0</span></div>
+  </div>
+
+  <!-- SECTION 5: FACTORY SALE -->
+  <div class="sep"></div>
+  <div class="sec-hd">🏭 Step 4: Factory Sale</div>
+  <div class="ali" id="sale-hint"></div>
+  <div class="fg fg3">
+    <div class="fl"><label>Factory / Buyer Name</label>
+      <div class="acw"><input id="b-buyer" placeholder="Factory name" oninput="acs(this,'b-buyer-ac','buyer')" autocomplete="off">
+      <div class="acl" id="b-buyer-ac"></div></div>
+    </div>
+    <div class="fl"><label>Final Weight (KG)</label><input type="number" id="b-skg" placeholder="e.g. 22834" oninput="calcBatch()"></div>
+    <div class="fl"><label>Rate per Mand ₨</label><input type="number" id="b-srt" placeholder="e.g. 4100" oninput="calcBatch()"></div>
+  </div>
+
+  <!-- SALE + PROFIT SUMMARY -->
+  <div id="batch-sale-calc" class="cbox mt2" style="display:none">
+    <h4>SALE & PROFIT/LOSS</h4>
+    <div class="cr"><span>Final Weight</span><span class="cv" id="bs-kg">—</span></div>
+    <div class="cr"><span>Net Mands Sold</span><span class="cv" id="bs-md">—</span></div>
+    <div class="cr"><span>Sale Amount</span><span class="cv tg" id="bs-sa">—</span></div>
+    <div class="cr" id="bs-comm-row" style="display:none"><span>1% Commission (earned)</span><span class="cv tg" id="bs-cm">—</span></div>
+    <div class="cr"><span>Total Purchase Cost</span><span class="cv tr" id="bs-pc">—</span></div>
+    <div class="cr" id="bs-pl-row"><span></span><span class="cv" id="bs-pl">—</span></div>
+  </div>
+
+  <!-- SECTION 6: SLIPS -->
+  <div class="sep"></div>
+  <div class="sec-hd">🗂️ Step 5: Slips</div>
+  <div class="fg fg2">
+    <div>
+      <label style="font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;display:block;margin-bottom:4px">Seller Slips</label>
+      <div class="pzn" onclick="document.getElementById('slip-ss').click()">📄 Add seller slips from gallery</div>
+      <input type="file" id="slip-ss" multiple accept="image/*" style="display:none" onchange="addSlips(this,'slip-sg','SS')">
+      <div class="pgrid" id="slip-sg"></div>
+    </div>
+    <div>
+      <label style="font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;display:block;margin-bottom:4px">Factory / Buyer Slips</label>
+      <div class="pzn" onclick="document.getElementById('slip-bs').click()">📄 Add factory slips from gallery</div>
+      <input type="file" id="slip-bs" multiple accept="image/*" style="display:none" onchange="addSlips(this,'slip-bg','BS')">
+      <div class="pgrid" id="slip-bg"></div>
+    </div>
+  </div>
+
+  <input type="hidden" id="b-type">
+  <input type="hidden" id="b-eid">
+</div>
+<div class="mf">
+  <button class="btn bo" onclick="closeMod('m-batch')">Cancel</button>
+  <button class="btn bp" onclick="saveBatch()">💾 Save Batch</button>
+</div>
+</div></div>
+
+<!-- WHEAT AGENT MODAL -->
+<div class="mov" id="m-wa">
+<div class="mod">
+<div class="mh"><h3>🤝 Wheat Agent Entry</h3><button class="mcl" onclick="closeMod('m-wa')">✕</button></div>
+<div class="mc">
+  <div class="ali">Agent trolley factory mein bechta hai. Factory se milne wale paise mein se agent ko rate per mand ke hisab se payment hoti hai, baqi hmara commission.</div>
+  <div class="fg fg2">
+    <div class="fl"><label>Date</label><input type="date" id="wa-dt"></div>
+    <div class="fl"><label>Agent Name *</label>
+      <div class="acw"><input id="wa-ag" placeholder="Agent name" oninput="acs(this,'wal','agent')" autocomplete="off">
+      <div class="acl" id="wal"></div></div>
+    </div>
+  </div>
+  <div class="fg fg3 mt2">
+    <div class="fl"><label>Net Weight (KG) *</label><input type="number" id="wa-kg" placeholder="After all deductions" oninput="calcAgent('wa')"></div>
+    <div class="fl"><label>Factory Sale Rate/Mand ₨ *</label><input type="number" id="wa-srt" placeholder="Factory ne jis rate pr khareeda e.g. 4150" oninput="calcAgent('wa')"></div>
+    <div class="fl"><label>My Commission/Mand ₨ *</label><input type="number" id="wa-rt" placeholder="Mera commission per mand e.g. 10" oninput="calcAgent('wa')"></div>
+  </div>
+  <div class="fg fg2 mt2">
+    <div class="fl"><label>Factory *</label>
+      <div class="acw"><input id="wa-fac" placeholder="Factory name" oninput="acs(this,'wafl','buyer')" autocomplete="off">
+      <div class="acl" id="wafl"></div></div>
+    </div>
+    <div class="fl"><label>Note</label><input id="wa-nt" placeholder="Notes"></div>
+  </div>
+  <div id="wa-calc" class="cbox mt2" style="display:none">
+    <div class="cr"><span>Net KG</span><span class="cv" id="wac-kg">0</span></div>
+    <div class="cr"><span>Net Mands</span><span class="cv" id="wac-md">0</span></div>
+    <div class="cr"><span>Factory Sale Amount</span><span class="cv tg" id="wac-sa">0</span></div>
+    <div class="cr"><span>My Commission</span><span class="cv tg" id="wac-mc">0</span></div>
+    <div class="cr tot"><span>Agent Payment (Sale - My Comm) ₨</span><span class="cv" id="wac-ap">0</span></div>
+  </div>
+  <input type="hidden" id="wa-eid">
+</div>
+<div class="mf">
+  <button class="btn bo" onclick="closeMod('m-wa')">Cancel</button>
+  <button class="btn bp" onclick="saveAgent('wheat')">💾 Save</button>
+</div>
+</div></div>
+
+<!-- WHEAT STOCK MODAL -->
+<div class="mov" id="m-wst">
+<div class="mod">
+<div class="mh"><h3>🏬 Add Wheat Stock</h3><button class="mcl" onclick="closeMod('m-wst')">✕</button></div>
+<div class="mc">
+  <div class="ali">Wheat stock: 1 bag = 50kg. Price per mand (40kg) basis.</div>
+  <div class="fg fg2">
+    <div class="fl"><label>Date</label><input type="date" id="wst-dt"></div>
+    <div class="fl"><label>Seller Name *</label>
+      <div class="acw"><input id="wst-sl" placeholder="Seller name" oninput="acs(this,'wstl','seller')" autocomplete="off">
+      <div class="acl" id="wstl"></div></div>
+    </div>
+  </div>
+  <div class="fg fg3 mt2">
+    <div class="fl"><label>Number of Bags *</label><input type="number" id="wst-bg" placeholder="e.g. 13" oninput="calcStockModal('w')"></div>
+    <div class="fl"><label>Rate per Mand ₨ *</label><input type="number" id="wst-rt" placeholder="e.g. 3700" oninput="calcStockModal('w')"></div>
+    <div class="fl"><label>Note</label><input id="wst-nt" placeholder="Notes"></div>
+  </div>
+  <div id="wst-calc" class="cbox mt2" style="display:none">
+    <div class="cr"><span>Bags</span><span class="cv" id="wstc-bg">0</span></div>
+    <div class="cr"><span>Weight (50kg/bag)</span><span class="cv" id="wstc-kg">0</span></div>
+    <div class="cr"><span>Mands</span><span class="cv" id="wstc-md">0</span></div>
+    <div class="cr tot"><span>Stock Purchase Value ₨</span><span class="cv" id="wstc-vl">0</span></div>
+  </div>
+  <input type="hidden" id="wst-eid">
+</div>
+<div class="mf">
+  <button class="btn bo" onclick="closeMod('m-wst')">Cancel</button>
+  <button class="btn bp" onclick="saveStock('wheat')">💾 Save</button>
+</div>
+</div></div>
+
+<!-- COTTON AGENT MODAL -->
+<div class="mov" id="m-ca">
+<div class="mod">
+<div class="mh"><h3>🤝 Cotton Agent Entry</h3><button class="mcl" onclick="closeMod('m-ca')">✕</button></div>
+<div class="mc">
+  <div class="ali">Agent trolley factory mein bechta hai. Factory se milne wale paise mein se agent ko rate per mand ke hisab se payment hoti hai, baqi hmara commission. Factory 1% commission alag se Commission Register mein.</div>
+  <div class="fg fg2">
+    <div class="fl"><label>Date</label><input type="date" id="ca-dt"></div>
+    <div class="fl"><label>Agent Name *</label>
+      <div class="acw"><input id="ca-ag" placeholder="Agent name" oninput="acs(this,'cal','agent')" autocomplete="off">
+      <div class="acl" id="cal"></div></div>
+    </div>
+  </div>
+  <div class="fg fg3 mt2">
+    <div class="fl"><label>Net Weight (KG) *</label><input type="number" id="ca-kg" placeholder="After all deductions" oninput="calcAgent('ca')"></div>
+    <div class="fl"><label>Factory Sale Rate/Mand ₨ *</label><input type="number" id="ca-srt" placeholder="Factory ne jis rate pr khareeda e.g. 8000" oninput="calcAgent('ca')"></div>
+    <div class="fl"><label>My Commission/Mand ₨ *</label><input type="number" id="ca-rt" placeholder="Mera commission per mand e.g. 50" oninput="calcAgent('ca')"></div>
+  </div>
+  <div class="fg fg2 mt2">
+    <div class="fl"><label>Factory *</label>
+      <div class="acw"><input id="ca-fac" placeholder="Factory name" oninput="acs(this,'cafl','buyer')" autocomplete="off">
+      <div class="acl" id="cafl"></div></div>
+    </div>
+    <div class="fl"><label>Note</label><input id="ca-nt" placeholder="Notes"></div>
+  </div>
+  <div id="ca-calc" class="cbox mt2" style="display:none">
+    <div class="cr"><span>Net KG</span><span class="cv" id="cac-kg">0</span></div>
+    <div class="cr"><span>Net Mands</span><span class="cv" id="cac-md">0</span></div>
+    <div class="cr"><span>Factory Sale Amount</span><span class="cv tg" id="cac-sa">0</span></div>
+    <div class="cr"><span>My Commission</span><span class="cv tg" id="cac-mc">0</span></div>
+    <div class="cr tot"><span>Agent Payment (Sale - My Comm) ₨</span><span class="cv" id="cac-ap">0</span></div>
+  </div>
+  <input type="hidden" id="ca-eid">
+</div>
+<div class="mf">
+  <button class="btn bo" onclick="closeMod('m-ca')">Cancel</button>
+  <button class="btn bp" onclick="saveAgent('cotton')">💾 Save</button>
+</div>
+</div></div>
+
+<!-- COTTON STOCK MODAL -->
+<div class="mov" id="m-cst">
+<div class="mod">
+<div class="mh"><h3>🏬 Add Cotton Stock</h3><button class="mcl" onclick="closeMod('m-cst')">✕</button></div>
+<div class="mc">
+  <div class="ali">Cotton stock: 1 mand = 40kg. Price per mand basis.</div>
+  <div class="fg fg2">
+    <div class="fl"><label>Date</label><input type="date" id="cst-dt"></div>
+    <div class="fl"><label>Seller Name *</label>
+      <div class="acw"><input id="cst-sl" placeholder="Seller name" oninput="acs(this,'cstl','seller')" autocomplete="off">
+      <div class="acl" id="cstl"></div></div>
+    </div>
+  </div>
+  <div class="fg fg3 mt2">
+    <div class="fl"><label>Number of Mands *</label><input type="number" id="cst-md" placeholder="e.g. 25" oninput="calcStockModal('c')"></div>
+    <div class="fl"><label>Rate per Mand ₨ *</label><input type="number" id="cst-rt" placeholder="e.g. 8000" oninput="calcStockModal('c')"></div>
+    <div class="fl"><label>Note</label><input id="cst-nt" placeholder="Notes"></div>
+  </div>
+  <div id="cst-calc" class="cbox mt2" style="display:none">
+    <div class="cr"><span>Mands</span><span class="cv" id="cstc-md">0</span></div>
+    <div class="cr"><span>Weight (40kg/mand)</span><span class="cv" id="cstc-kg">0</span></div>
+    <div class="cr tot"><span>Stock Purchase Value ₨</span><span class="cv" id="cstc-vl">0</span></div>
+  </div>
+  <input type="hidden" id="cst-eid">
+</div>
+<div class="mf">
+  <button class="btn bo" onclick="closeMod('m-cst')">Cancel</button>
+  <button class="btn bp" onclick="saveStock('cotton')">💾 Save</button>
+</div>
+</div></div>
+
+<!-- IMG VIEWER -->
+<div class="mov" id="m-img" onclick="closeMod('m-img')">
+  <img id="m-img-s" style="max-width:90vw;max-height:90vh;border-radius:10px" src="">
+</div>
+<div id="toast"></div>
+<script>
+// ============= DATA STORE =============
+var DB = {
+  parties: [],
+  khata: [],
+  cashIn: [],
+  cashOut: [],
+  wBatches: [],   // wheat batches (purchase+sale combined)
+  cBatches: [],   // cotton batches
+  wAgent: [],
+  cAgent: [],
+  wStock: [],
+  cStock: []
+};
+
+var LANG = 'e';
+var tmpSlips = { SS: [], BS: [] };
+var sellerRows = [];   // current modal seller rows
+var stockRows = [];    // current modal stock rows
+var batchType = 'wheat'; // current modal type
+
+function dbSave() {
+  try { localStorage.setItem('ft3', JSON.stringify(DB)); } catch(e) { console.error('Save error', e); }
+}
+function dbLoad() {
+  try {
+    var d = localStorage.getItem('ft3');
+    if (d) DB = JSON.parse(d);
+  } catch(e) { console.error('Load error', e); }
+}
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function td() { return new Date().toISOString().split('T')[0]; }
+function fm(n, d) { d = d || 0; return parseFloat(n || 0).toLocaleString('en-PK', {minimumFractionDigits: 0, maximumFractionDigits: 2}); }
+function fp(n) { return '₨ ' + fm(n); }
+function kgM(kg) { var m = Math.floor(kg / 40); var r = Math.round((kg % 40) * 100) / 100; return r === 0 ? m + ' Mand' : m + ' Mand ' + r + ' kg'; }
+function el(id) { return document.getElementById(id); }
+function gv(id) { var e = el(id); return e ? e.value : ''; }
+function sv(id, val) { var e = el(id); if (e) e.value = (val === undefined || val === null) ? '' : val; }
+function toast(msg) {
+  var t = el('toast'); t.textContent = '✅ ' + msg; t.style.display = 'block';
+  setTimeout(function() { t.style.display = 'none'; }, 2800);
+}
+
+// ============= LANG =============
+function setLang(l) {
+  LANG = l;
+  el('ben').classList.toggle('on', l === 'e');
+  el('bur').classList.toggle('on', l === 'u');
+}
+
+// ============= NAV =============
+var pgT = {dash:'Dashboard', parties:'Parties', khata:'Khata Register', cf:'Cash Flow',
+  wp:'Wheat Purchase & Sale', wa:'Wheat Agent', wst:'Wheat Stock',
+  cp:'Cotton Purchase & Sale', ca:'Cotton Agent', cst:'Cotton Stock', comm:'Commission'};
+
+function go(pg) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('on'); });
+  var pe = el('page-' + pg);
+  if (pe) pe.classList.add('on');
+  document.querySelectorAll('.na').forEach(function(a) { a.classList.remove('on'); });
+  var na = document.querySelector('.na[data-pg="' + pg + '"]');
+  if (na) na.classList.add('on');
+  el('pgtitle').textContent = pgT[pg] || pg;
+  var fns = {dash:rDash, parties:rParties, khata:rKhata, cf:rCF,
+    wp:function(){rBatchList('wheat');}, wa:rWA, wst:rWST,
+    cp:function(){rBatchList('cotton');}, ca:rCA, cst:rCST, comm:rComm};
+  if (fns[pg]) fns[pg]();
+  // Close mobile nav on link click
+  if (window.innerWidth <= 768) closeNav();
+}
+
+function toggleNav() {
+  el('sb').classList.toggle('on');
+  var ov = el('sb-overlay');
+  if (el('sb').classList.contains('on')) {
+    ov.classList.add('on');
+    ov.style.display = 'block';
+  } else {
+    closeNav();
+  }
+}
+function closeNav() {
+  el('sb').classList.remove('on');
+  var ov = el('sb-overlay');
+  ov.classList.remove('on');
+  setTimeout(function() { if (!ov.classList.contains('on')) ov.style.display = 'none'; }, 300);
+}
+
+// ============= MODAL =============
+// Define which fields to reset for each modal (so previous entry data doesn't show on + New)
+var MODAL_RESET = {
+  'm-wa': ['wa-dt','wa-ag','wa-kg','wa-rt','wa-srt','wa-fac','wa-nt','wa-eid'],
+  'm-ca': ['ca-dt','ca-ag','ca-kg','ca-rt','ca-srt','ca-fac','ca-nt','ca-eid'],
+  'm-wst': ['wst-dt','wst-sl','wst-bg','wst-rt','wst-nt','wst-eid'],
+  'm-cst': ['cst-dt','cst-sl','cst-md','cst-rt','cst-nt','cst-eid']
+};
+
+function openMod(id) {
+  // Reset all fields for this modal so previous entry data doesn't persist
+  if (MODAL_RESET[id]) {
+    MODAL_RESET[id].forEach(function(fid) { sv(fid, ''); });
+  }
+  el(id).classList.add('on');
+  el(id).querySelectorAll('input[type="date"]').forEach(function(i) { if (!i.value) i.value = td(); });
+  // Hide calc boxes (they show only when data is entered)
+  var calcBoxes = el(id).querySelectorAll('.cbox');
+  calcBoxes.forEach(function(b) { b.style.display = 'none'; });
+  // Re-init number defaults for stock modals
+  if (id === 'm-wst') { sv('wst-bg',''); sv('wst-rt',''); }
+  if (id === 'm-cst') { sv('cst-md',''); sv('cst-rt',''); }
+}
+function closeMod(id) { el(id).classList.remove('on'); }
+document.querySelectorAll('.mov').forEach(function(o) {
+  o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('on'); });
+});
+
+// ============= AUTOCOMPLETE =============
+function acs(inp, lid, cat) {
+  var q = inp.value.toLowerCase().trim();
+  var list = el(lid);
+  if (!q) { list.classList.remove('on'); return; }
+  var res = DB.parties.filter(function(p) { return p.name.toLowerCase().includes(q); });
+  if (cat === 'seller') res = res.filter(function(p) { return p.cat === 'seller'; });
+  else if (cat === 'buyer') res = res.filter(function(p) { return p.cat === 'buyer'; });
+  else if (cat === 'agent') res = res.filter(function(p) { return p.cat === 'agent'; });
+  if (!res.length) { list.classList.remove('on'); return; }
+  list.innerHTML = res.slice(0, 6).map(function(p) {
+    return '<div class="aci" onmousedown="acSel(\'' + inp.id + '\',\'' + lid + '\',\'' + p.id + '\')">' +
+      '<div class="an">' + p.name + '</div>' +
+      '<div class="as">' + (p.contact || '') + (p.address ? ' · ' + p.address : '') + '</div></div>';
+  }).join('');
+  list.classList.add('on');
+}
+function acSel(inpId, lid, pid) {
+  var p = DB.parties.find(function(x) { return x.id === pid; });
+  if (!p) return;
+  el(inpId).value = p.name;
+  el(lid).classList.remove('on');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.acw')) document.querySelectorAll('.acl').forEach(function(l) { l.classList.remove('on'); });
+});
+
+// ============= PARTIES =============
+function ptab(t) {
+  el('pt-list').style.display = t === 'list' ? 'block' : 'none';
+  el('pt-add').style.display = t === 'add' ? 'block' : 'none';
+  document.querySelectorAll('#page-parties .tb').forEach(function(b, i) {
+    b.classList.toggle('on', (t === 'list' && i === 0) || (t === 'add' && i === 1));
+  });
+  if (t === 'list') rParties();
+  if (t === 'add' && !gv('pa-eid')) { clearPF(); }
+}
+function saveParty() {
+  var nm = gv('pa-nm').trim();
+  if (!nm) { alert('Enter name'); return; }
+  var eid = gv('pa-eid');
+  var nmLow = nm.toLowerCase();
+  // Check duplicate (case-insensitive, ignore current edit id)
+  var dup = DB.parties.find(function(x) { return x.name.toLowerCase() === nmLow && x.id !== eid; });
+  if (dup) {
+    alert('⚠️ Party "' + dup.name + '" already exists!\n\nAap same naam se 2 parties nahi bana sakte. Agar edit karni hai toh existing party par ✏️ Edit karein.');
+    return;
+  }
+  var p = {id: eid || uid(), name: nm, contact: gv('pa-ct'), cat: gv('pa-cat'), address: gv('pa-ad'), notes: gv('pa-nt')};
+  if (eid) { var i = DB.parties.findIndex(function(x) { return x.id === eid; }); if (i >= 0) DB.parties[i] = p; }
+  else DB.parties.push(p);
+  dbSave(); clearPF(); ptab('list'); toast('Party saved!');
+}
+function clearPF() { ['pa-nm','pa-ct','pa-ad','pa-nt','pa-eid'].forEach(function(id) { sv(id, ''); }); sv('pa-cat', 'seller'); }
+function editParty(id) {
+  var p = DB.parties.find(function(x) { return x.id === id; });
+  if (!p) return;
+  sv('pa-nm', p.name); sv('pa-ct', p.contact); sv('pa-cat', p.cat); sv('pa-ad', p.address); sv('pa-nt', p.notes); sv('pa-eid', p.id);
+  ptab('add');
+}
+function delParty(id) {
+  if (!confirm('Delete?')) return;
+  DB.parties = DB.parties.filter(function(x) { return x.id !== id; });
+  dbSave(); rParties();
+}
+function rParties() {
+  var q = (gv('psrch') || '').toLowerCase();
+  var cols = {seller: [], buyer: [], other: []};
+  DB.parties.filter(function(p) { return p.name.toLowerCase().includes(q); }).forEach(function(p) {
+    var c = p.cat === 'seller' ? 'seller' : p.cat === 'buyer' ? 'buyer' : 'other';
+    cols[c].push(p);
+  });
+  [['seller','pl-sel'], ['buyer','pl-buy'], ['other','pl-oth']].forEach(function(pair) {
+    var arr = cols[pair[0]], eid = pair[1];
+    // All parties in scrollable container (10 visible at a time)
+    var html = arr.length ? ('<div class="list-scroll">' + arr.map(function(p) {
+      return '<div class="card" style="margin-bottom:7px"><div style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center">' +
+        '<div><div style="font-weight:700;font-size:13px;color:var(--g)">' + p.name + '</div>' +
+        '<div style="font-size:10px;color:var(--tx3)">' + (p.contact || '-') + (p.address ? ' · ' + p.address : '') + '</div>' +
+        (p.notes ? '<div style="font-size:10px;color:var(--tx3)">' + p.notes + '</div>' : '') + '</div>' +
+        '<div style="display:flex;gap:4px">' +
+        '<button class="btn bo bxs" onclick="editParty(\'' + p.id + '\')">✏️</button>' +
+        '<button class="btn br2 bxs" onclick="delParty(\'' + p.id + '\')">✕</button></div>' +
+        '</div></div>';
+    }).join('') + '</div>') : '<div class="empty" style="padding:16px"><div class="ei" style="font-size:22px">👤</div><div>No entries</div></div>';
+    el(eid).innerHTML = html;
+  });
+}
+
+// ============= KHATA =============
+function ktab(t) {
+  el('kt-l').style.display = t === 'list' ? 'block' : 'none';
+  el('kt-n').style.display = t === 'new' ? 'block' : 'none';
+  document.querySelectorAll('#page-khata .tb').forEach(function(b, i) {
+    b.classList.toggle('on', (t === 'list' && i === 0) || (t === 'new' && i === 1));
+  });
+  // Reset form when opening + New Entry (so previous data doesn't show)
+  if (t === 'new') {
+    ['kh-nm','kh-gv','kh-tk','kh-nt','kh-eid'].forEach(function(id){sv(id,'');});
+    sv('kh-tp', 'manual');
+    el('kh-c').style.display = 'none';
+    if (!sv('kh-dt')) sv('kh-dt', td());
+  }
+  if (t === 'list') rKhata();
+}
+function calcKH() {
+  var g = parseFloat(gv('kh-gv') || 0), t2 = parseFloat(gv('kh-tk') || 0);
+  var bx = el('kh-c');
+  if (g || t2) {
+    bx.style.display = 'block';
+    el('khc-g').textContent = fp(g); el('khc-t').textContent = fp(t2);
+    var b = g - t2; el('khc-b').textContent = fp(b);
+    el('khc-b').className = 'cv ' + (b >= 0 ? 'tg' : 'tr');
+  } else bx.style.display = 'none';
+}
+function saveKH() {
+  var nm = gv('kh-nm').trim(); if (!nm) { alert('Enter name'); return; }
+  var eid = gv('kh-eid');
+  var e = {id: eid || uid(), name: nm, date: gv('kh-dt') || td(), type: gv('kh-tp'),
+    given: parseFloat(gv('kh-gv') || 0), taken: parseFloat(gv('kh-tk') || 0), detail: gv('kh-nt'), auto: false};
+  e.balance = e.given - e.taken;
+  if (eid) { var i = DB.khata.findIndex(function(x) { return x.id === eid; }); if (i >= 0) DB.khata[i] = e; }
+  else DB.khata.push(e);
+  dbSave();
+  ['kh-nm','kh-gv','kh-tk','kh-nt','kh-eid'].forEach(function(id) { sv(id, ''); });
+  el('kh-c').style.display = 'none';
+  ktab('list'); toast('Khata entry saved!');
+}
+function autoKH(name, given, taken, detail, date) {
+  DB.khata.push({id: uid(), name: name, date: date || td(), type: 'auto',
+    given: given || 0, taken: taken || 0, detail: detail || '',
+    balance: (given || 0) - (taken || 0), auto: true});
+  dbSave();
+}
+function editKH(id) {
+  var e = DB.khata.find(function(x) { return x.id === id; }); if (!e) return;
+  sv('kh-nm', e.name); sv('kh-dt', e.date); sv('kh-tp', e.type || 'manual');
+  sv('kh-gv', e.given || ''); sv('kh-tk', e.taken || ''); sv('kh-nt', e.detail); sv('kh-eid', e.id);
+  calcKH(); ktab('new');
+}
+function delKH(id) {
+  if (!confirm('Delete?')) return;
+  DB.khata = DB.khata.filter(function(x) { return x.id !== id; }); dbSave(); rKhata();
+}
+function rKhata() {
+  var q = (gv('ksrch') || '').toLowerCase();
+  var grp = {};
+  DB.khata.filter(function(e) { return e.name.toLowerCase().includes(q); }).forEach(function(e) {
+    if (!grp[e.name]) grp[e.name] = [];
+    grp[e.name].push(e);
+  });
+  var html = '';
+  if (!Object.keys(grp).length) {
+    html = '<div class="empty"><div class="ei">📒</div><div>No khata entries</div></div>';
+    el('khata-list').innerHTML = html;
+    return;
+  }
+  // All groups in scrollable container (10 visible at a time)
+  html = '<div class="list-scroll">';
+  Object.keys(grp).forEach(function(nm) { html += renderKhataGroup(nm, grp[nm]); });
+  html += '</div>';
+  el('khata-list').innerHTML = html;
+}
+function renderKhataGroup(nm, arr) {
+  var tg = arr.reduce(function(s,e){return s+e.given;}, 0);
+  var tt = arr.reduce(function(s,e){return s+e.taken;}, 0);
+  var bal = tg - tt;
+  return '<div class="card" style="margin-bottom:10px">' +
+    '<div class="acc-hd" onclick="this.nextElementSibling.classList.toggle(\'on\')">' +
+    '<div><div style="font-weight:800;font-size:13px;color:var(--g)">' + nm + '</div>' +
+    '<div style="font-size:10px;color:var(--tx3)">' + arr.length + ' entries</div></div>' +
+    '<div style="text-align:right"><div style="font-family:\'JetBrains Mono\',monospace;font-size:14px;font-weight:800" class="' + (bal >= 0 ? 'tg' : 'tr') + '">' + fp(bal) + '</div>' +
+    '<div style="font-size:10px;color:var(--tx3)">Balance</div></div></div>' +
+    '<div class="acc-bd"><div class="tw"><table>' +
+    '<thead><tr><th>Date</th><th>Type</th><th>Detail</th><th>Given ₨</th><th>Taken ₨</th><th>Balance ₨</th><th>Edit</th><th>Del</th></tr></thead><tbody>' +
+    arr.map(function(e) {
+      return '<tr><td>' + e.date + '</td>' +
+        '<td><span class="bdg ' + (e.auto ? 'byy' : 'bbb') + '">' + (e.auto ? 'Auto' : e.type || '-') + '</span></td>' +
+        '<td>' + (e.detail || '-') + '</td>' +
+        '<td class="nm tg">' + (e.given ? fp(e.given) : '-') + '</td>' +
+        '<td class="nm tr">' + (e.taken ? fp(e.taken) : '-') + '</td>' +
+        '<td class="nm fw7 ' + (e.balance >= 0 ? 'tg' : 'tr') + '">' + fp(e.balance) + '</td>' +
+        '<td><button class="btn bo bxs" onclick="editKH(\'' + e.id + '\')">✏️</button></td>' +
+        '<td><button class="btn br2 bxs" onclick="delKH(\'' + e.id + '\')">✕</button></td></tr>';
+    }).join('') +
+    '<tr class="tft"><td colspan="3">TOTAL</td><td class="nm tg">' + fp(tg) + '</td><td class="nm tr">' + fp(tt) + '</td>' +
+    '<td class="nm fw8 ' + (bal >= 0 ? 'tg' : 'tr') + '">' + fp(bal) + '</td><td></td><td></td></tr>' +
+    '</tbody></table></div></div></div>';
+}
+
+// ============= CASH FLOW =============
+function cftab(t) {
+  ['in','out','sum'].forEach(function(x) { el('cf-' + x).style.display = x === t ? 'block' : 'none'; });
+  document.querySelectorAll('#page-cf .tb').forEach(function(b, i) { b.classList.toggle('on', ['in','out','sum'][i] === t); });
+  if (t === 'sum') updCFS();
+  // Reset form fields when switching to in/out tab (only if not editing)
+  if (t === 'in' && !gv('ci-eid')) { ['ci-fr','ci-am','ci-de','ci-eid'].forEach(function(id){sv(id,'');}); }
+  if (t === 'out' && !gv('co-eid')) { ['co-to','co-am','co-de','co-eid'].forEach(function(id){sv(id,'');}); }
+}
+function savCI() {
+  var am = parseFloat(gv('ci-am') || 0); if (!am) { alert('Enter amount'); return; }
+  var nm = gv('ci-fr').trim(), eid = gv('ci-eid');
+  var e = {id: eid || uid(), date: gv('ci-dt') || td(), name: nm, amt: am, detail: gv('ci-de')};
+  if (eid) { var i = DB.cashIn.findIndex(function(x){return x.id===eid;}); if(i>=0) DB.cashIn[i]=e; }
+  else { DB.cashIn.push(e); if (nm) autoKH(nm, 0, am, 'Cash In: ' + e.detail, e.date); }
+  ['ci-fr','ci-am','ci-de','ci-eid'].forEach(function(id){sv(id,'');}); dbSave(); rCF(); toast('Cash In saved!');
+}
+function savCO() {
+  var am = parseFloat(gv('co-am') || 0); if (!am) { alert('Enter amount'); return; }
+  var nm = gv('co-to').trim(), eid = gv('co-eid');
+  var e = {id: eid || uid(), date: gv('co-dt') || td(), name: nm, amt: am, detail: gv('co-de')};
+  if (eid) { var i = DB.cashOut.findIndex(function(x){return x.id===eid;}); if(i>=0) DB.cashOut[i]=e; }
+  else { DB.cashOut.push(e); if (nm) autoKH(nm, am, 0, 'Cash Out: ' + e.detail, e.date); }
+  ['co-to','co-am','co-de','co-eid'].forEach(function(id){sv(id,'');}); dbSave(); rCF(); toast('Cash Out saved!');
+}
+function editCI(id) {
+  var e = DB.cashIn.find(function(x){return x.id===id;}); if(!e) return;
+  sv('ci-dt',e.date); sv('ci-fr',e.name); sv('ci-am',e.amt); sv('ci-de',e.detail); sv('ci-eid',e.id); cftab('in');
+}
+function editCO(id) {
+  var e = DB.cashOut.find(function(x){return x.id===id;}); if(!e) return;
+  sv('co-dt',e.date); sv('co-to',e.name); sv('co-am',e.amt); sv('co-de',e.detail); sv('co-eid',e.id); cftab('out');
+}
+function delCI(id) { if(!confirm('Delete?'))return; DB.cashIn=DB.cashIn.filter(function(x){return x.id!==id;}); dbSave(); rCF(); }
+function delCO(id) { if(!confirm('Delete?'))return; DB.cashOut=DB.cashOut.filter(function(x){return x.id!==id;}); dbSave(); rCF(); }
+function rCF() {
+  var it = DB.cashIn.reduce(function(s,e){return s+e.amt;},0);
+  var ot = DB.cashOut.reduce(function(s,e){return s+e.amt;},0);
+  el('ci-ttl').textContent = fp(it); el('co-ttl').textContent = fp(ot);
+  // All entries in reverse order; container scrollable (10 visible)
+  var ciSorted = DB.cashIn.slice().reverse();
+  el('ci-tb').innerHTML = ciSorted.length ? ciSorted.map(function(e){
+    return '<tr><td>'+e.date+'</td><td class="fw7">'+(e.name||'-')+'</td><td>'+(e.detail||'-')+'</td>' +
+      '<td class="nm tg fw7">'+fp(e.amt)+'</td>' +
+      '<td><button class="btn bo bxs" onclick="editCI(\''+e.id+'\')">✏️</button></td>' +
+      '<td><button class="btn br2 bxs" onclick="delCI(\''+e.id+'\')">✕</button></td></tr>';
+  }).join('') : '<tr><td colspan="6" class="empty">No entries</td></tr>';
+  // Wrap in scrollable container (always — gives consistent 10-row viewport)
+  var ciTable = el('ci-tb').parentElement.parentElement;
+  if (ciTable) ciTable.classList.add('list-scroll');
+
+  var coSorted = DB.cashOut.slice().reverse();
+  el('co-tb').innerHTML = coSorted.length ? coSorted.map(function(e){
+    return '<tr><td>'+e.date+'</td><td class="fw7">'+(e.name||'-')+'</td><td>'+(e.detail||'-')+'</td>' +
+      '<td class="nm tr fw7">'+fp(e.amt)+'</td>' +
+      '<td><button class="btn bo bxs" onclick="editCO(\''+e.id+'\')">✏️</button></td>' +
+      '<td><button class="btn br2 bxs" onclick="delCO(\''+e.id+'\')">✕</button></td></tr>';
+  }).join('') : '<tr><td colspan="6" class="empty">No entries</td></tr>';
+  var coTable = el('co-tb').parentElement.parentElement;
+  if (coTable) coTable.classList.add('list-scroll');
+  updCFS();
+}
+function updCFS() {
+  var i = DB.cashIn.reduce(function(s,e){return s+e.amt;},0);
+  var o = DB.cashOut.reduce(function(s,e){return s+e.amt;},0);
+  var n = i - o;
+  el('cfs-i').textContent = fp(i); el('cfs-o').textContent = fp(o);
+  el('cfs-n').textContent = fp(n); el('cfs-n').className = 'am ' + (n >= 0 ? 'tg' : 'tr');
+}
+// ============= BATCH MODAL (WHEAT + COTTON COMBINED) =============
+function openWBatch(type) {
+  batchType = type;
+  sellerRows = []; stockRows = [];
+  tmpSlips.SS = []; tmpSlips.BS = [];
+  el('slip-sg').innerHTML = ''; el('slip-bg').innerHTML = '';
+  ['b-dt','b-rf','b-nt','b-buyer','b-skg','b-srt','b-eid'].forEach(function(id){sv(id,'');});
+  ['b-lab','b-fuel','b-bag','b-ext','b-bka'].forEach(function(id){sv(id,'0');});
+  sv('b-bkt','none'); sv('b-type', type);
+  el('batch-pur-calc').style.display = 'none';
+  el('batch-sale-calc').style.display = 'none';
+  el('sellers-list').innerHTML = '';
+  el('stock-rows-list').innerHTML = '';
+  // Auto-generate next batch number: W-1, W-2... for wheat, C-1, C-2... for cotton
+  var arr = type === 'wheat' ? DB.wBatches : DB.cBatches;
+  var prefix = type === 'wheat' ? 'W-' : 'C-';
+  var maxN = 0;
+  arr.forEach(function(b) {
+    var m = (b.ref || '').match(new RegExp('^' + prefix + '(\\d+)'));
+    if (m) { var n = parseInt(m[1], 10); if (n > maxN) maxN = n; }
+  });
+  sv('b-rf', prefix + (maxN + 1));
+  // type-specific UI
+  if (type === 'wheat') {
+    el('batch-modal-title').textContent = '🌾 Wheat Batch — Purchase & Sale';
+    el('batch-ded-hint').textContent = 'Wheat: Bora = 51kg→50kg. Buy Trolley = enter Empty trolley (kg) and Loaded trolley (kg), net weight auto. Rate per Mand.';
+    el('sale-hint').textContent = 'Wheat sale: Enter final weight in KG + Rate per Mand only. No deductions or expenses.';
+    el('lab-lbl').textContent = 'Labour (₨/bag)';
+    el('bags-exp-div').style.display = 'block';
+    el('stock-hint').textContent = '📦 Stock Pool — load bags/mands anonymously. Cost = average rate of available stock. Stock labour = separate per-bag rate.';
+    el('bs-comm-row').style.display = 'none';
+    el('bc-unit-lbl').textContent = 'Total Bags';
+  } else {
+    el('batch-modal-title').textContent = '🌸 Cotton Batch — Purchase & Sale';
+    el('batch-ded-hint').textContent = 'Cotton: Mand = 41kg→40kg. Buy Trolley = enter Empty trolley (kg) and Loaded trolley (kg), net weight auto. Rate per Mand.';
+    el('sale-hint').textContent = 'Cotton sale: Enter final weight in KG + Rate per Mand. 1% commission earned from factory (separate, not in P&L).';
+    el('lab-lbl').textContent = 'Labour (₨/mand)';
+    el('bags-exp-div').style.display = 'none';
+    el('stock-hint').textContent = '📦 Stock Pool — load mands anonymously. Cost = average rate of available stock. Stock labour = separate per-mand rate.';
+    el('bs-comm-row').style.display = 'flex';
+    el('bc-unit-lbl').textContent = 'Total Net Mands';
+  }
+  openMod('m-batch');
+}
+
+// --- SELLER ROWS ---
+function addSellerRow() {
+  sellerRows.push({id: uid(), name:'', method: batchType==='wheat'?'bora':'mand', qty:0, tEmpty:0, tLoaded:0, extraDed:0, rate:0, detail:''});
+  renderSellerRows();
+}
+function removeSellerRow(i) { sellerRows.splice(i,1); renderSellerRows(); calcBatch(); }
+
+function renderSellerRows() {
+  var c = el('sellers-list');
+  if (!sellerRows.length) {
+    c.innerHTML = '<div style="padding:10px;font-size:12px;color:var(--tx3);text-align:center">Click "+ Add Farmer" to add sellers</div>';
+    el('batch-pur-calc').style.display = 'none'; return;
+  }
+  var isW = batchType === 'wheat';
+  c.innerHTML = sellerRows.map(function(r, i) {
+    var methodOpts = isW
+      ? '<option value="bora"' + (r.method==='bora'?' selected':'') + '>Bora (51kg→50kg)</option>' +
+        '<option value="trailer"' + (r.method==='trailer'?' selected':'') + '>Buy Trolley (kg)</option>'
+      : '<option value="mand"' + (r.method==='mand'?' selected':'') + '>Mand (41kg→40kg)</option>' +
+        '<option value="trailer"' + (r.method==='trailer'?' selected':'') + '>Buy Trolley (kg)</option>';
+    var qtyLabel = isW ? (r.method==='bora'?'No. of Bags':'Trolley Weight (kg)') : (r.method==='mand'?'No. of Mands':'Trolley Weight (kg)');
+    var showLoaded = r.method === 'trailer';
+    // For Buy Trolley, qty field is KG, then user enters loaded KG as tLoaded
+    // Net = loaded - empty. Empty trailer = qty (kg) entered. Loaded = tLoaded (kg) entered.
+    return '<div class="prow">' +
+      '<button class="btn br2 bxs pdel" onclick="removeSellerRow('+i+')">✕</button>' +
+      '<div class="fg fg4">' +
+        '<div class="fl"><label>Seller Name</label>' +
+          '<div class="acw"><input value="' + (r.name||'') + '" placeholder="Farmer name" id="sr'+i+'" ' +
+          'oninput="sellerRows['+i+'].name=this.value;acs(this,\'srac'+i+'\',\'seller\')" autocomplete="off">' +
+          '<div class="acl" id="srac'+i+'" onmousedown="srPick(event,'+i+')"></div></div></div>' +
+        '<div class="fl"><label>Method</label>' +
+          '<select onchange="sellerRows['+i+'].method=this.value;renderSellerRows()">' + methodOpts + '</select></div>' +
+        '<div class="fl"><label>' + qtyLabel + '</label>' +
+          '<input type="number" value="'+(r.qty||'')+'" placeholder="0" ' +
+          'oninput="sellerRows['+i+'].qty=+this.value;calcBatch()"></div>' +
+        (showLoaded ? '<div class="fl"><label>Loaded Trolley (kg)</label>' +
+          '<input type="number" value="'+(r.tLoaded||'')+'" placeholder="0" ' +
+          'oninput="sellerRows['+i+'].tLoaded=+this.value;calcBatch()"></div>' : '<div></div>') +
+      '</div>' +
+      '<div class="fg fg4 mt1">' +
+        '<div class="fl"><label>Std Deduction</label><input readonly value="1 kg/' + (isW?'bag':'mand') + '" style="background:var(--bg2);font-size:11px"></div>' +
+        '<div class="fl"><label>Extra Ded/' + (isW?'bag':'mand') + ' (kg)</label>' +
+          '<input type="number" value="'+(r.extraDed||0)+'" oninput="sellerRows['+i+'].extraDed=+this.value;calcBatch()"></div>' +
+        '<div class="fl"><label>Rate/Mand ₨</label>' +
+          '<input type="number" value="'+(r.rate||'')+'" placeholder="'+(isW?'e.g. 3800':'e.g. 8000')+'" ' +
+          'oninput="sellerRows['+i+'].rate=+this.value;calcBatch()"></div>' +
+        '<div class="fl"><label>Detail/Note</label>' +
+          '<input value="'+(r.detail||'')+'" placeholder="Notes" oninput="sellerRows['+i+'].detail=this.value"></div>' +
+      '</div>' +
+      '<div class="prc" id="src'+i+'">Enter data to see calculation</div>' +
+    '</div>';
+  }).join('');
+  calcBatch();
+}
+function srPick(evt, i) {
+  var nm = evt.target.closest('.aci') ? evt.target.closest('.aci').querySelector('.an').textContent : null;
+  if (nm) { sellerRows[i].name = nm; var inp = el('sr'+i); if(inp) inp.value = nm; }
+}
+
+// --- STOCK ROWS in batch ---
+function addStockRow() {
+  var pool = batchType === 'wheat' ? DB.wStock.filter(function(s){return (s.remBags||0)>0;}) : DB.cStock.filter(function(s){return (s.remMands||0)>0;});
+  if (!pool.length) { alert('No stock available. Add stock in Stock Register first.'); return; }
+  // Single row — pool only, no per-seller selection
+  var stats = getStockAvgRate();
+  stockRows.push({id: uid(), usePcs:0, labRate:0, avgRate: stats.avg});
+  renderStockRows();
+}
+function removeStockRow(i) { stockRows.splice(i,1); renderStockRows(); calcBatch(); }
+
+function getStockAvgRate() {
+  // Return total available units (kg-mands) and weighted avg rate per mand from available stock
+  var isW = batchType === 'wheat';
+  var pool = isW ? DB.wStock.filter(function(s){return (s.remBags||0)>0;}) : DB.cStock.filter(function(s){return (s.remMands||0)>0;});
+  var totKg = 0, totVal = 0;
+  pool.forEach(function(s) {
+    var rem = isW ? (s.remBags||0) : (s.remMands||0);
+    var kg = isW ? rem * 50 : rem * 40;
+    var md = kg / 40;
+    totKg += kg;
+    totVal += md * s.rt;
+  });
+  var avg = totKg > 0 ? (totVal / (totKg / 40)) : 0;
+  return {totKg: totKg, totMd: totKg/40, avg: avg, unit: isW?'bags':'mands', availUnits: pool.reduce(function(s,p){return s+(isW?(p.remBags||0):(p.remMands||0));},0)};
+}
+
+function renderStockRows() {
+  var c = el('stock-rows-list');
+  if (!stockRows.length) { c.innerHTML = ''; return; }
+  var isW = batchType === 'wheat';
+  var unit = isW ? 'bags' : 'mands';
+  var stats = getStockAvgRate();
+  c.innerHTML = stockRows.map(function(r, i) {
+    var maxPcs = stats.availUnits;
+    return '<div class="stk-row">' +
+      '<button class="btn br2 bxs pdel" onclick="removeStockRow('+i+')">✕</button>' +
+      '<div style="background:var(--bg2);padding:8px 10px;border-radius:5px;margin-bottom:7px;font-size:12px;color:var(--tx2)">📦 <strong>Stock Pool:</strong> ' + fm(stats.availUnits,2) + ' ' + unit + ' (' + kgM(stats.totKg) + ') available @ avg rate <strong>' + fp(stats.avg) + '/mand</strong></div>' +
+      '<div class="fg fg3">' +
+        '<div class="fl"><label>' + (isW?'Bags':'Mands') + ' to Load (max: ' + fm(maxPcs) + ')</label>' +
+          '<input type="number" value="'+(r.usePcs||'')+'" placeholder="e.g. 5" max="'+maxPcs+'" ' +
+          'oninput="stockRows['+i+'].usePcs=Math.min(+this.value,'+maxPcs+');this.value=stockRows['+i+'].usePcs;calcBatch()"></div>' +
+        '<div class="fl"><label>Stock Labour (₨/' + (isW?'bag':'mand') + ')</label>' +
+          '<input type="number" value="'+(r.labRate||0)+'" placeholder="e.g. 10" ' +
+          'oninput="stockRows['+i+'].labRate=+this.value;calcBatch()"></div>' +
+        '<div class="fl"><label>Cost (auto @ avg rate)</label>' +
+          '<input readonly value="' + (r.usePcs ? fp(r.usePcs * (isW ? 50/40 : 1) * stats.avg) : '—') + '" style="background:var(--bg2);font-size:11px;font-weight:700"></div>' +
+      '</div></div>';
+  }).join('');
+  calcBatch();
+}
+
+// --- MAIN BATCH CALC ---
+function calcBatch() {
+  var isW = batchType === 'wheat';
+  // calc sellers
+  var totUnits = 0, totNetKg = 0, totSelPay = 0;
+  sellerRows.forEach(function(r, i) {
+    var gKg = 0, nUnits = 0;
+    if (isW) {
+      if (r.method === 'bora') { nUnits = r.qty; gKg = nUnits * 51; }
+      else {
+        // Buy Trolley (kg): qty = empty trolley kg, tLoaded = loaded trolley kg
+        var netKgTrolley = Math.max(0, (r.tLoaded||0) - (r.qty||0));
+        gKg = netKgTrolley; nUnits = netKgTrolley / 51;
+      }
+    } else {
+      if (r.method === 'mand') { nUnits = r.qty; gKg = nUnits * 41; }
+      else {
+        // Buy Trolley (kg): qty = empty trolley kg, tLoaded = loaded trolley kg
+        var netKgTrolley2 = Math.max(0, (r.tLoaded||0) - (r.qty||0));
+        gKg = netKgTrolley2; nUnits = netKgTrolley2 / 41;
+      }
+    }
+    var stdD = nUnits * 1, extD = nUnits * (r.extraDed||0), netKg = gKg - stdD - extD;
+    var netM = netKg / 40, pay = netM * (r.rate||0);
+    totUnits += nUnits; totNetKg += netKg; totSelPay += pay;
+    var rc = el('src'+i);
+    if (rc) {
+      if (r.method === 'trailer') {
+        rc.innerHTML = '<div class="pr"><span>Empty: ' + fm(r.qty||0,0) + 'kg | Loaded: ' + fm(r.tLoaded||0,0) + 'kg</span>' +
+          '<span>Std Ded: ' + fm(stdD,0) + 'kg | Extra Ded: ' + fm(extD,0) + 'kg</span></div>' +
+          '<div class="pt"><span>Net: ' + kgM(netKg) + ' (' + fm(netM,3) + ' mands)</span>' +
+          '<span class="tr"> Pay: ' + fp(pay) + '</span></div>';
+      } else {
+        rc.innerHTML = '<div class="pr"><span>Gross: ' + fm(gKg,0) + 'kg (' + fm(nUnits,1) + (isW?' bags':' mands') + ')</span>' +
+          '<span>Std Ded: ' + fm(stdD,0) + 'kg | Extra Ded: ' + fm(extD,0) + 'kg</span></div>' +
+          '<div class="pt"><span>Net: ' + kgM(netKg) + ' (' + fm(netM,3) + ' mands)</span>' +
+          '<span class="tr"> Pay: ' + fp(pay) + '</span></div>';
+      }
+    }
+  });
+  // expenses
+  var labRate = parseFloat(gv('b-lab')||0);
+  var fuel = parseFloat(gv('b-fuel')||0);
+  var bagCost = isW ? parseFloat(gv('b-bag')||0) : 0;
+  var ext = parseFloat(gv('b-ext')||0);
+  var bkt = gv('b-bkt'), bka = parseFloat(gv('b-bka')||0);
+  var lab = isW ? totUnits * labRate : (totNetKg/40) * labRate;
+  var bags = isW ? totUnits * bagCost : 0;
+  var brok = bkt==='perunit' ? totUnits*bka : bkt==='fixed' ? bka : 0;
+  // stock — pool avg rate, no per-seller selection
+  var stkCost = 0, stkLab = 0;
+  var stkStats = getStockAvgRate();
+  stockRows.forEach(function(r) {
+    if (r.usePcs > 0) {
+      var pcs = r.usePcs;
+      // Wheat: 1 bag = 50kg, cotton: 1 mand = 40kg; cost = (kg/40) * avg rate
+      var cost = (isW ? (pcs * 50 / 40) : pcs) * stkStats.avg;
+      stkCost += cost;
+      stkLab += pcs * (r.labRate || 0);
+    }
+  });
+  var totCost = totSelPay + lab + fuel + bags + brok + ext + stkCost + stkLab;
+  // show purchase summary
+  if (totUnits > 0 || totNetKg > 0) {
+    el('batch-pur-calc').style.display = 'block';
+    el('bc-units').textContent = fm(totUnits,1) + (isW?' bags':' mands');
+    el('bc-wt').textContent = kgM(totNetKg) + ' (' + fm(totNetKg,0) + ' kg)';
+    el('bc-sp').textContent = fp(totSelPay);
+    el('bc-lab').textContent = fp(lab);
+    el('bc-fuel').textContent = fp(fuel);
+    el('bc-bag').textContent = fp(bags);
+    el('bc-bk').textContent = fp(brok);
+    el('bc-ext').textContent = fp(ext);
+    el('bc-stk').textContent = fp(stkCost);
+    el('bc-slab').textContent = fp(stkLab);
+    el('bc-tot').textContent = fp(totCost);
+    if (isW) { el('bc-bag-row').style.display='flex'; } else { el('bc-bag-row').style.display='none'; }
+  }
+  // sale calc
+  var skg = parseFloat(gv('b-skg')||0), srt = parseFloat(gv('b-srt')||0);
+  if (skg > 0 && srt > 0) {
+    el('batch-sale-calc').style.display = 'block';
+    var sMands = skg / 40, sAmt = sMands * srt;
+    var comm = isW ? 0 : sAmt * 0.01;
+    // 1% commission is SEPARATE — not included in P&L (it's earned from factory, shown in Commission register)
+    var pl = sAmt - totCost;
+    el('bs-kg').textContent = fm(skg,0) + ' kg';
+    el('bs-md').textContent = kgM(skg) + ' (' + fm(sMands,3) + ' mands)';
+    el('bs-sa').textContent = fp(sAmt);
+    if (!isW) el('bs-cm').textContent = fp(comm) + ' (1% — separate, not in P&L)';
+    el('bs-pc').textContent = totCost > 0 ? fp(totCost) : '—';
+    el('bs-pl').textContent = fp(Math.abs(pl));
+    var plRow = el('bs-pl-row');
+    if (pl >= 0) {
+      plRow.className = 'cr pl-pos';
+      plRow.querySelector('span:first-child').textContent = '✅ PROFIT ₨';
+    } else {
+      plRow.className = 'cr pl-neg';
+      plRow.querySelector('span:first-child').textContent = '❌ LOSS ₨';
+    }
+  } else {
+    el('batch-sale-calc').style.display = 'none';
+  }
+  return {totUnits, totNetKg, totSelPay, lab, fuel, bags, brok, ext, stkCost, stkLab, totCost};
+}
+
+// --- SAVE BATCH ---
+function saveBatch() {
+  var type = gv('b-type');
+  if (!type) { alert('Error: batch type not set'); return; }
+  if (!sellerRows.length) { alert('Add at least one seller/farmer'); return; }
+  var rf = gv('b-rf') || 'Batch';
+  var calc = calcBatch();
+  var isW = type === 'wheat';
+  // compute detailed seller data
+  var sellers = sellerRows.map(function(r) {
+    var gKg = 0, nUnits = 0;
+    if (isW) {
+      if (r.method === 'bora') { nUnits = r.qty; gKg = nUnits * 51; }
+      else {
+        var netKgTrolley = Math.max(0, (r.tLoaded||0) - (r.qty||0));
+        gKg = netKgTrolley; nUnits = netKgTrolley / 51;
+      }
+    } else {
+      if (r.method === 'mand') { nUnits = r.qty; gKg = nUnits * 41; }
+      else {
+        var netKgTrolley2 = Math.max(0, (r.tLoaded||0) - (r.qty||0));
+        gKg = netKgTrolley2; nUnits = netKgTrolley2 / 41;
+      }
+    }
+    var stdD = nUnits*1, extD = nUnits*(r.extraDed||0), netKg = gKg-stdD-extD, netM = netKg/40, pay = netM*(r.rate||0);
+    return {name:r.name, method:r.method, qty:r.qty, tLoaded:r.tLoaded||0, extraDed:r.extraDed||0, rate:r.rate||0,
+      detail:r.detail||'', gKg:gKg, nUnits:nUnits, stdD:stdD, extD:extD, netKg:netKg, netM:netM, pay:pay};
+  });
+  // stock used — pool only, no per-seller tracking. FIFO deduct from oldest stock entries.
+  var stockPool = isW ? DB.wStock : DB.cStock;
+  var stockUsed = [];
+  var poolStats = getStockAvgRate();
+  stockRows.filter(function(r){return r.usePcs > 0;}).forEach(function(r) {
+    var remaining = r.usePcs;
+    var rowCost = (isW ? (r.usePcs * 50 / 40) : r.usePcs) * poolStats.avg;
+    var rowLab = r.usePcs * (r.labRate || 0);
+    // FIFO deduct from oldest available stock entries
+    for (var i = 0; i < stockPool.length && remaining > 0; i++) {
+      var s = stockPool[i];
+      var rem = isW ? (s.remBags || 0) : (s.remMands || 0);
+      if (rem <= 0) continue;
+      var take = Math.min(rem, remaining);
+      if (isW) s.remBags = rem - take;
+      else s.remMands = rem - take;
+      s.status = (isW ? s.remBags : s.remMands) <= 0 ? 'sold' : 'partial';
+      remaining -= take;
+    }
+    stockUsed.push({usePcs: r.usePcs, labRate: r.labRate || 0, cost: rowCost, labCost: rowLab});
+  });
+  // sale data
+  var skg = parseFloat(gv('b-skg')||0), srt = parseFloat(gv('b-srt')||0);
+  var sMands = skg/40, sAmt = sMands*srt, comm = isW ? 0 : sAmt*0.01;
+  // 1% commission is SEPARATE — not in P&L
+  var pl = skg > 0 ? sAmt - calc.totCost : 0;
+  var eid = gv('b-eid');
+  var batch = {
+    id: eid || uid(), date: gv('b-dt') || td(), ref: rf, type: type, note: gv('b-nt'),
+    sellers: sellers, stockUsed: stockUsed,
+    exp: {lab:calc.lab, fuel:calc.fuel, bags:calc.bags, brok:calc.brok, ext:calc.ext, stkCost:calc.stkCost, stkLab:calc.stkLab},
+    totUnits: calc.totUnits, totNetKg: calc.totNetKg, totSelPay: calc.totSelPay, totCost: calc.totCost,
+    sale: {buyer: gv('b-buyer'), kg:skg, rate:srt, mands:sMands, saleAmt:sAmt, comm:comm, pl:pl},
+    selSlips: tmpSlips.SS.slice(), buySlips: tmpSlips.BS.slice()
+  };
+  var arr = isW ? DB.wBatches : DB.cBatches;
+  if (eid) {
+    var idx = arr.findIndex(function(x){return x.id===eid;});
+    if (idx >= 0) arr[idx] = batch; else arr.push(batch);
+  } else {
+    arr.push(batch);
+  }
+  if (isW) DB.wBatches = arr; else DB.cBatches = arr;
+  // Ensure 'Labour' exists as a party for khata tracking
+  if (!DB.parties.find(function(p){return p.name.toLowerCase()==='labour';})) {
+    DB.parties.push({id: uid(), name: 'Labour', contact: '', cat: 'agent', address: '', notes: 'Auto — labour expense tracking'});
+  }
+  dbSave();
+  // auto khata for sellers
+  sellers.forEach(function(s) { if (s.name && s.pay > 0) autoKH(s.name, 0, s.pay, (isW?'Wheat':'Cotton') + ' Purchase ' + rf, batch.date); });
+  // auto khata for buyer — factory ko sirf sale amount (1% commission alag se commission register mein track hota hai)
+  if (batch.sale.buyer && sAmt > 0) autoKH(batch.sale.buyer, sAmt, 0, (isW?'Wheat':'Cotton') + ' Sale ' + rf, batch.date);
+  // auto khata for Labour — total labour (main + stock) goes to Labour account as Taken
+  var totalLab = (calc.lab || 0) + (calc.stkLab || 0);
+  if (totalLab > 0) autoKH('Labour', 0, totalLab, (isW?'Wheat':'Cotton') + ' Labour ' + rf, batch.date);
+  tmpSlips.SS = []; tmpSlips.BS = [];
+  closeMod('m-batch');
+  rBatchList(type);
+  toast((isW?'Wheat':'Cotton') + ' batch saved!');
+}
+
+// --- RENDER BATCH LIST ---
+function rBatchList(type) {
+  var isW = type === 'wheat';
+  var arr = isW ? DB.wBatches : DB.cBatches;
+  var c = el(isW ? 'wp-list' : 'cp-list');
+  if (!arr.length) { c.innerHTML = '<div class="empty"><div class="ei">' + (isW?'🌾':'🌸') + '</div><div>No batches yet. Click "+ New Batch" to start.</div></div>'; return; }
+  // All batches in scrollable container (10 visible at a time)
+  c.innerHTML = '<div class="list-scroll" style="max-height:560px">' +
+    arr.slice().reverse().map(function(b) {
+    var hasSale = b.sale && b.sale.kg > 0;
+    var plClass = b.sale && b.sale.pl >= 0 ? 'tg' : 'tr';
+    var plLabel = b.sale && b.sale.pl >= 0 ? '✅ Profit' : '❌ Loss';
+    return '<div class="card" style="margin-bottom:12px">' +
+      '<div class="acc-hd" onclick="this.nextElementSibling.classList.toggle(\'on\')">' +
+        '<div><div style="font-weight:800;font-size:13px;color:var(--g)">' + b.ref + ' <span style="font-size:11px;font-weight:400;color:var(--tx3)">' + b.date + '</span></div>' +
+          '<div style="font-size:11px;color:var(--tx3)">' + b.sellers.length + ' sellers · ' + fm(b.totUnits,1) + (isW?' bags':' mands') + ' · ' + kgM(b.totNetKg) +
+          (hasSale ? ' · Sold to: ' + b.sale.buyer : ' · <em>Sale pending</em>') + '</div></div>' +
+        '<div style="text-align:right">' +
+          (hasSale ? '<div class="' + plClass + '" style="font-family:\'JetBrains Mono\',monospace;font-size:14px;font-weight:800">' + plLabel + ': ' + fp(Math.abs(b.sale.pl)) + '</div>' : '') +
+          '<div style="font-size:11px;color:var(--tx3)">Cost: ' + fp(b.totCost) + (hasSale ? ' | Sale: ' + fp(b.sale.saleAmt) : '') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="acc-bd"><div style="padding:12px">' +
+        // Purchase section
+        '<div style="font-size:11px;font-weight:800;color:var(--g);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">👨‍🌾 Purchase</div>' +
+        '<div class="tw"><table><thead><tr><th>Seller</th><th>Method</th><th>' + (isW?'Bags':'Mands') + '</th><th>Gross kg</th><th>Std Ded</th><th>Extra Ded</th><th>Net kg</th><th>Net Mands</th><th>Rate/M ₨</th><th>Payment ₨</th></tr></thead><tbody>' +
+        b.sellers.map(function(s) {
+          return '<tr><td class="fw7">' + s.name + '</td>' +
+            '<td><span class="bdg ' + (s.method==='bora'||s.method==='mand'?'bbb':'byy') + '">' + s.method + '</span></td>' +
+            '<td class="nm">' + fm(s.nUnits,1) + '</td><td class="nm">' + fm(s.gKg,0) + '</td>' +
+            '<td class="nm tr">' + fm(s.stdD,0) + 'kg</td><td class="nm tr">' + fm(s.extD,0) + 'kg</td>' +
+            '<td class="nm">' + fm(s.netKg,0) + 'kg</td><td class="nm">' + kgM(s.netKg) + '</td>' +
+            '<td class="nm">' + fp(s.rate) + '</td><td class="nm tr fw7">' + fp(s.pay) + '</td></tr>';
+        }).join('') +
+        '<tr class="tft"><td colspan="9">Sellers Total</td><td class="nm tr">' + fp(b.totSelPay) + '</td></tr>' +
+        '</tbody></table></div>' +
+        // Expenses
+        '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;background:var(--bg2);padding:9px;border-radius:8px;font-size:11px">' +
+        ['Labour:'+fp(b.exp.lab), 'Fuel:'+fp(b.exp.fuel), (isW?'Bags:'+fp(b.exp.bags):''), 'Broker:'+fp(b.exp.brok), 'Extra:'+fp(b.exp.ext), 'Stock Cost:'+fp(b.exp.stkCost), 'Stock Labour:'+fp(b.exp.stkLab)]
+          .filter(function(x){return x;}).map(function(x){var p=x.split(':');return '<span><span style="color:var(--tx3)">'+p[0]+':</span> <strong>'+p.slice(1).join(':')+'</strong></span>';}).join('') +
+        '<span style="border-left:2px solid var(--bdr);padding-left:8px"><span style="color:var(--tx3)">Total Cost:</span> <strong class="tr">' + fp(b.totCost) + '</strong></span></div>' +
+        // Stock used (anonymized — no farmer name)
+        (b.stockUsed && b.stockUsed.length ? '<div style="margin-top:8px;font-size:11px"><strong>📦 Stock Pool Loaded:</strong> ' +
+          b.stockUsed.map(function(s){return fm(s.usePcs)+(isW?' bags':' mands')+' (Cost:'+fp(s.cost)+' Lab:'+fp(s.labCost)+')';}).join(', ') + '</div>' : '') +
+        // Sale section
+        '<div style="font-size:11px;font-weight:800;color:var(--g);margin-top:13px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">🏭 Factory Sale</div>' +
+        (hasSale ?
+          '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;background:' + (b.sale.pl>=0?'#f0fdf4':'#fef2f2') + ';padding:10px;border-radius:8px;font-size:12px">' +
+          '<div><div style="font-size:10px;color:var(--tx3)">Factory</div><div class="fw7">' + b.sale.buyer + '</div></div>' +
+          '<div><div style="font-size:10px;color:var(--tx3)">Final Weight</div><div class="fw7">' + fm(b.sale.kg,0) + ' kg / ' + kgM(b.sale.kg) + '</div></div>' +
+          '<div><div style="font-size:10px;color:var(--tx3)">Rate/Mand</div><div class="fw7">' + fp(b.sale.rate) + '</div></div>' +
+          '<div><div style="font-size:10px;color:var(--tx3)">Sale Amount</div><div class="fw7 tg">' + fp(b.sale.saleAmt) + '</div></div>' +
+          (!isW ? '<div><div style="font-size:10px;color:var(--tx3)">1% Commission</div><div class="fw7 tg">' + fp(b.sale.comm) + '</div></div>' : '<div></div>') +
+          '</div>' +
+          '<div style="margin-top:8px;padding:10px;border-radius:8px;background:var(--g);color:#fff;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="font-size:12px;opacity:.7">Purchase Cost: ' + fp(b.totCost) + '</span>' +
+          '<span style="font-size:15px;font-weight:800;font-family:\'JetBrains Mono\',monospace;color:' + (b.sale.pl>=0?'#4ade80':'#f87171') + '">' +
+          (b.sale.pl>=0?'✅ PROFIT: ':'❌ LOSS: ') + fp(Math.abs(b.sale.pl)) + '</span></div>'
+          : '<div class="alw">⏳ Sale not recorded yet. Edit batch to add factory sale details.</div>') +
+        // Slips
+        ((b.selSlips&&b.selSlips.length)||(b.buySlips&&b.buySlips.length) ?
+          '<div style="margin-top:10px">' +
+          (b.selSlips&&b.selSlips.length ? '<div style="font-size:10px;font-weight:700;color:var(--tx3);margin-bottom:4px">Seller Slips:</div><div class="pgrid">' + b.selSlips.map(function(s){return '<div class="pitem"><img src="'+s+'" onclick="vImg(\''+s+'\')"></div>';}).join('') + '</div>' : '') +
+          (b.buySlips&&b.buySlips.length ? '<div style="font-size:10px;font-weight:700;color:var(--tx3);margin-top:6px;margin-bottom:4px">Factory Slips:</div><div class="pgrid">' + b.buySlips.map(function(s){return '<div class="pitem"><img src="'+s+'" onclick="vImg(\''+s+'\')"></div>';}).join('') + '</div>' : '') +
+          '</div>' : '') +
+        '<div style="margin-top:10px;display:flex;gap:7px">' +
+        '<button class="btn bo bsm" onclick="editBatch(\'' + type + '\',\'' + b.id + '\')">✏️ Edit</button>' +
+        '<button class="btn br2 bsm" onclick="delBatch(\'' + type + '\',\'' + b.id + '\')">🗑️ Delete</button></div>' +
+      '</div></div></div>';
+  }).join('') + '</div>';
+}
+
+function editBatch(type, id) {
+  var arr = type === 'wheat' ? DB.wBatches : DB.cBatches;
+  var b = arr.find(function(x){return x.id===id;}); if (!b) return;
+  openWBatch(type);
+  setTimeout(function() {
+    sv('b-dt', b.date); sv('b-rf', b.ref); sv('b-nt', b.note||''); sv('b-eid', b.id);
+    sv('b-lab', b.exp.lab / Math.max(b.totUnits,1)); sv('b-fuel', b.exp.fuel);
+    sv('b-bag', b.exp.bags / Math.max(b.totUnits,1)); sv('b-ext', b.exp.ext);
+    if (b.sale) { sv('b-buyer', b.sale.buyer||''); sv('b-skg', b.sale.kg||''); sv('b-srt', b.sale.rate||''); }
+    tmpSlips.SS = (b.selSlips||[]).slice(); tmpSlips.BS = (b.buySlips||[]).slice();
+    el('slip-sg').innerHTML = tmpSlips.SS.map(function(s,i){return '<div class="pitem"><img src="'+s+'" onclick="vImg(\''+s+'\')"><button class="pdx" onclick="tmpSlips.SS.splice('+i+',1);this.parentElement.remove()">✕</button></div>';}).join('');
+    el('slip-bg').innerHTML = tmpSlips.BS.map(function(s,i){return '<div class="pitem"><img src="'+s+'" onclick="vImg(\''+s+'\')"><button class="pdx" onclick="tmpSlips.BS.splice('+i+',1);this.parentElement.remove()">✕</button></div>';}).join('');
+    sellerRows = b.sellers.map(function(s){return {id:uid(),name:s.name,method:s.method,qty:s.qty,tLoaded:s.tLoaded||0,extraDed:s.extraDed||0,rate:s.rate,detail:s.detail||''};});
+    stockRows = [];
+    renderSellerRows();
+  }, 80);
+}
+function delBatch(type, id) {
+  if (!confirm('Delete this batch?')) return;
+  if (type==='wheat') DB.wBatches = DB.wBatches.filter(function(x){return x.id!==id;});
+  else DB.cBatches = DB.cBatches.filter(function(x){return x.id!==id;});
+  dbSave(); rBatchList(type);
+}
+// ============= AGENT =============
+function calcAgent(pfx) {
+  var kg = parseFloat(document.getElementById(pfx+'-kg').value||0);
+  var srt = parseFloat(document.getElementById(pfx+'-srt').value||0); // factory sale rate per mand
+  var rt = parseFloat(document.getElementById(pfx+'-rt').value||0);   // my commission per mand
+  var calcEl = document.getElementById(pfx+'-calc');
+  if (!kg) { calcEl.style.display='none'; return null; }
+  var md = kg/40;
+  var sa = md * srt;          // factory sale amount (total)
+  var mc = md * rt;           // my commission
+  var ap = sa - mc;           // agent payment = sale - my commission
+  calcEl.style.display='block';
+  document.getElementById(pfx+'c-kg').textContent = fm(kg,0)+' kg';
+  document.getElementById(pfx+'c-md').textContent = kgM(kg);
+  document.getElementById(pfx+'c-sa').textContent = fp(sa);
+  document.getElementById(pfx+'c-mc').textContent = fp(mc);
+  document.getElementById(pfx+'c-ap').textContent = fp(ap);
+  return {kg:kg, md:md, srt:srt, rt:rt, sa:sa, mc:mc, ap:ap, cm:mc};
+}
+function saveAgent(type) {
+  var isW = type==='wheat';
+  var pfx = isW ? 'wa' : 'ca';
+  var ag = document.getElementById(pfx+'-ag').value.trim();
+  if (!ag) { alert('Enter agent name'); return; }
+  var fac = document.getElementById(pfx+'-fac').value.trim();
+  if (!fac) { alert('Enter factory name'); return; }
+  var c = calcAgent(pfx);
+  if (!c) { alert('Enter weight'); return; }
+  if (!c.srt) { alert('Enter factory sale rate'); return; }
+  if (!c.rt) { alert('Enter my commission per mand'); return; }
+  var eid = document.getElementById(pfx+'-eid').value;
+  var e = {id:eid||uid(), date:document.getElementById(pfx+'-dt').value||td(),
+    agent:ag, factory:fac, kg:c.kg, md:c.md, rt:c.rt, srt:c.srt, sa:c.sa, ap:c.ap, cm:c.cm,
+    note:document.getElementById(pfx+'-nt').value};
+  var arr = isW ? DB.wAgent : DB.cAgent;
+  if (eid) { var i=arr.findIndex(function(x){return x.id===eid;}); if(i>=0) arr[i]=e; }
+  else arr.push(e);
+  if (isW) DB.wAgent=arr; else DB.cAgent=arr;
+  dbSave();
+  // Factory ke khate mein: factory ne humse maal khareeda, abhi paise nahi diye → Given (factory ka hum par haq)
+  if (fac && c.sa > 0) autoKH(fac, c.sa, 0, (isW?'Wheat':'Cotton') + ' Sale (Agent Trolly) - ' + ag, e.date);
+  // Agent ke khate mein: humne agent ko paise dene hain (sale - my commission) → Taken (hum par agent ka haq)
+  if (ag && c.ap > 0) autoKH(ag, 0, c.ap, (isW?'Wheat':'Cotton') + ' Agent Payment - ' + kgM(c.kg), e.date);
+  // Mera commission = profit, dashboard mein track hota hai (cash flow mein nahi)
+  closeMod('m-'+pfx);
+  if(isW) rWA(); else rCA();
+  toast('Agent entry saved! My commission: ' + fp(c.cm));
+}
+function editAgent(type, id) {
+  var isW = type==='wheat', pfx=isW?'wa':'ca';
+  var arr = isW?DB.wAgent:DB.cAgent;
+  var e = arr.find(function(x){return x.id===id;}); if(!e) return;
+  document.getElementById(pfx+'-dt').value=e.date;
+  document.getElementById(pfx+'-ag').value=e.agent;
+  document.getElementById(pfx+'-kg').value=e.kg;
+  document.getElementById(pfx+'-rt').value=e.rt;
+  document.getElementById(pfx+'-srt').value=e.srt||'';
+  document.getElementById(pfx+'-fac').value=e.factory||'';
+  document.getElementById(pfx+'-nt').value=e.note||'';
+  document.getElementById(pfx+'-eid').value=e.id;
+  openMod('m-'+pfx); setTimeout(function(){calcAgent(pfx);},80);
+}
+function delAgent(type, id) {
+  if(!confirm('Delete?'))return;
+  if(type==='wheat') DB.wAgent=DB.wAgent.filter(function(x){return x.id!==id;});
+  else DB.cAgent=DB.cAgent.filter(function(x){return x.id!==id;});
+  dbSave(); if(type==='wheat') rWA(); else rCA();
+}
+function rWA() {
+  var tb=document.getElementById('wa-tb');
+  if(!DB.wAgent.length){
+    tb.innerHTML='<tr><td colspan="11" class="empty">No entries</td></tr>';
+    var wrap=tb.parentElement.parentElement; if(wrap) wrap.classList.remove('list-scroll');
+    return;
+  }
+  var sorted = DB.wAgent.slice().reverse();
+  tb.innerHTML=sorted.map(function(e){
+    return '<tr><td>'+e.date+'</td><td class="fw7">'+e.agent+'</td>' +
+      '<td class="nm">'+fm(e.kg,0)+'</td><td class="nm">'+kgM(e.kg)+'</td>' +
+      '<td class="nm">'+fp(e.srt||0)+'</td>' +
+      '<td class="nm">'+fp(e.rt||0)+'</td>' +
+      '<td class="nm fw7">'+e.factory+'</td>' +
+      '<td class="nm tg">'+fp(e.sa||0)+'</td>' +
+      '<td class="nm fw7">'+fp(e.ap||0)+'</td>' +
+      '<td class="nm tg fw7">'+fp(e.cm||0)+'</td>' +
+      '<td><button class="btn bo bxs" onclick="editAgent(\'wheat\',\''+e.id+'\')">✏️</button></td>' +
+      '<td><button class="btn br2 bxs" onclick="delAgent(\'wheat\',\''+e.id+'\')">✕</button></td></tr>';
+  }).join('');
+  var wrap=tb.parentElement.parentElement;
+  if(wrap) wrap.classList.add('list-scroll');
+}
+function rCA() {
+  var tb=document.getElementById('ca-tb');
+  if(!DB.cAgent.length){
+    tb.innerHTML='<tr><td colspan="11" class="empty">No entries</td></tr>';
+    var wrap=tb.parentElement.parentElement; if(wrap) wrap.classList.remove('list-scroll');
+    return;
+  }
+  var sorted = DB.cAgent.slice().reverse();
+  tb.innerHTML=sorted.map(function(e){
+    return '<tr><td>'+e.date+'</td><td class="fw7">'+e.agent+'</td>' +
+      '<td class="nm">'+fm(e.kg,0)+'</td><td class="nm">'+kgM(e.kg)+'</td>' +
+      '<td class="nm">'+fp(e.srt||0)+'</td>' +
+      '<td class="nm">'+fp(e.rt||0)+'</td>' +
+      '<td class="nm fw7">'+e.factory+'</td>' +
+      '<td class="nm tg">'+fp(e.sa||0)+'</td>' +
+      '<td class="nm fw7">'+fp(e.ap||0)+'</td>' +
+      '<td class="nm tg fw7">'+fp(e.cm||0)+'</td>' +
+      '<td><button class="btn bo bxs" onclick="editAgent(\'cotton\',\''+e.id+'\')">✏️</button></td>' +
+      '<td><button class="btn br2 bxs" onclick="delAgent(\'cotton\',\''+e.id+'\')">✕</button></td></tr>';
+  }).join('');
+  var wrap=tb.parentElement.parentElement;
+  if(wrap) wrap.classList.add('list-scroll');
+}
+
+// ============= STOCK MODAL CALC =============
+function calcStockModal(t) {
+  if(t==='w') {
+    var bg=parseFloat(document.getElementById('wst-bg').value||0);
+    var rt=parseFloat(document.getElementById('wst-rt').value||0);
+    var calcEl=document.getElementById('wst-calc');
+    if(!bg){calcEl.style.display='none';return;}
+    var kg=bg*50, md=kg/40, vl=md*rt;
+    calcEl.style.display='block';
+    document.getElementById('wstc-bg').textContent=fm(bg,0)+' bags';
+    document.getElementById('wstc-kg').textContent=fm(kg,0)+' kg';
+    document.getElementById('wstc-md').textContent=kgM(kg);
+    document.getElementById('wstc-vl').textContent=fp(vl);
+    return {bg:bg,kg:kg,md:md,rt:rt,vl:vl};
+  } else {
+    var md2=parseFloat(document.getElementById('cst-md').value||0);
+    var rt2=parseFloat(document.getElementById('cst-rt').value||0);
+    var calcEl2=document.getElementById('cst-calc');
+    if(!md2){calcEl2.style.display='none';return;}
+    var kg2=md2*40, vl2=md2*rt2;
+    calcEl2.style.display='block';
+    document.getElementById('cstc-md').textContent=kgM(kg2);
+    document.getElementById('cstc-kg').textContent=fm(kg2,0)+' kg';
+    document.getElementById('cstc-vl').textContent=fp(vl2);
+    return {md:md2,kg:kg2,rt:rt2,vl:vl2};
+  }
+}
+function saveStock(type) {
+  var isW=type==='wheat';
+  var pfx=isW?'wst':'cst';
+  var sl=document.getElementById(pfx+'-sl').value.trim();
+  if(!sl){alert('Enter seller name');return;}
+  var c=calcStockModal(isW?'w':'c');
+  if(!c){alert('Enter '+(isW?'bags':'mands'));return;}
+  var eid=document.getElementById(pfx+'-eid').value;
+  var e;
+  if(isW){
+    e={id:eid||uid(),date:document.getElementById('wst-dt').value||td(),
+      seller:sl,bg:c.bg,kg:c.kg,md:c.md,rt:c.rt,vl:c.vl,
+      note:document.getElementById('wst-nt').value,
+      remBags:eid?(DB.wStock.find(function(x){return x.id===eid;})||{remBags:c.bg}).remBags:c.bg,
+      status:'available'};
+    if(eid){var i=DB.wStock.findIndex(function(x){return x.id===eid;});if(i>=0)DB.wStock[i]=e;}
+    else DB.wStock.push(e);
+  } else {
+    e={id:eid||uid(),date:document.getElementById('cst-dt').value||td(),
+      seller:sl,md:c.md,kg:c.kg,rt:c.rt,vl:c.vl,
+      note:document.getElementById('cst-nt').value,
+      remMands:eid?(DB.cStock.find(function(x){return x.id===eid;})||{remMands:c.md}).remMands:c.md,
+      status:'available'};
+    if(eid){var i2=DB.cStock.findIndex(function(x){return x.id===eid;});if(i2>=0)DB.cStock[i2]=e;}
+    else DB.cStock.push(e);
+  }
+  autoKH(sl, 0, c.vl, (isW?'Wheat':'Cotton')+' Stock Purchase', e.date);
+  dbSave();
+  closeMod('m-'+pfx);
+  if(isW) rWST(); else rCST();
+  toast((isW?'Wheat':'Cotton')+' stock saved!');
+}
+function editStock(type,id) {
+  var isW=type==='wheat', pfx=isW?'wst':'cst';
+  var arr=isW?DB.wStock:DB.cStock;
+  var e=arr.find(function(x){return x.id===id;}); if(!e) return;
+  document.getElementById(pfx+'-dt').value=e.date;
+  document.getElementById(pfx+'-sl').value=e.seller;
+  document.getElementById(pfx+'-nt').value=e.note||'';
+  document.getElementById(pfx+'-eid').value=e.id;
+  if(isW) document.getElementById('wst-bg').value=e.bg, document.getElementById('wst-rt').value=e.rt;
+  else document.getElementById('cst-md').value=e.md, document.getElementById('cst-rt').value=e.rt;
+  openMod('m-'+pfx); setTimeout(function(){calcStockModal(isW?'w':'c');},80);
+}
+function delStock(type,id) {
+  if(!confirm('Delete?'))return;
+  if(type==='wheat') DB.wStock=DB.wStock.filter(function(x){return x.id!==id;});
+  else DB.cStock=DB.cStock.filter(function(x){return x.id!==id;});
+  dbSave(); if(type==='wheat') rWST(); else rCST();
+}
+function rWST() {
+  var avail=DB.wStock.filter(function(s){return (s.remBags||0)>0;});
+  var totBg=avail.reduce(function(s,e){return s+(e.remBags||0);},0);
+  var avgRt=avail.length?avail.reduce(function(s,e){return s+e.rt;},0)/avail.length:0;
+  document.getElementById('wst-sum').innerHTML=
+    '<div class="sc grn"><h3>Available Bags</h3><div class="am">'+fm(totBg,0)+'</div><div style="font-size:11px;color:var(--tx3)">'+kgM(totBg*50)+'</div></div>'+
+    '<div class="sc"><h3>Avg Rate/Mand</h3><div class="am">'+fp(avgRt)+'</div></div>'+
+    '<div class="sc ylw"><h3>Stock Value</h3><div class="am">'+fp(avail.reduce(function(s,e){return s+(e.remBags||0)*50/40*e.rt;},0))+'</div></div>';
+  var tb=document.getElementById('wst-tb');
+  if(!DB.wStock.length){
+    tb.innerHTML='<tr><td colspan="9" class="empty">No stock entries</td></tr>';
+    var wrap=tb.parentElement.parentElement; if(wrap) wrap.classList.remove('list-scroll');
+    return;
+  }
+  var sorted = DB.wStock.slice().reverse();
+  tb.innerHTML=sorted.map(function(e){
+    var rem=e.remBags||0;
+    return '<tr><td>'+e.date+'</td><td class="fw7">'+e.seller+'</td>' +
+      '<td class="nm">'+fm(e.bg,0)+'</td><td class="nm">'+fm(rem,0)+'</td>' +
+      '<td class="nm">'+fm(rem*50,0)+' kg</td><td class="nm">'+fp(e.rt)+'</td>' +
+      '<td class="nm">'+fp(rem*50/40*e.rt)+'</td>' +
+      '<td><span class="bdg '+(rem>0?'bgg':'brr')+'">'+(rem>0?'Available':'Sold Out')+'</span></td>' +
+      '<td><button class="btn bo bxs" onclick="editStock(\'wheat\',\''+e.id+'\')">✏️</button></td>' +
+      '<td><button class="btn br2 bxs" onclick="delStock(\'wheat\',\''+e.id+'\')">✕</button></td></tr>';
+  }).join('');
+  var wrap=tb.parentElement.parentElement;
+  if(wrap) wrap.classList.add('list-scroll');
+}
+function rCST() {
+  var avail=DB.cStock.filter(function(s){return (s.remMands||0)>0;});
+  var totMd=avail.reduce(function(s,e){return s+(e.remMands||0);},0);
+  var avgRt=avail.length?avail.reduce(function(s,e){return s+e.rt;},0)/avail.length:0;
+  document.getElementById('cst-sum').innerHTML=
+    '<div class="sc grn"><h3>Available Mands</h3><div class="am">'+kgM(totMd*40)+'</div></div>'+
+    '<div class="sc"><h3>Avg Rate/Mand</h3><div class="am">'+fp(avgRt)+'</div></div>'+
+    '<div class="sc ylw"><h3>Stock Value</h3><div class="am">'+fp(avail.reduce(function(s,e){return s+(e.remMands||0)*e.rt;},0))+'</div></div>';
+  var tb=document.getElementById('cst-tb');
+  if(!DB.cStock.length){
+    tb.innerHTML='<tr><td colspan="9" class="empty">No stock entries</td></tr>';
+    var wrap=tb.parentElement.parentElement; if(wrap) wrap.classList.remove('list-scroll');
+    return;
+  }
+  var sorted = DB.cStock.slice().reverse();
+  tb.innerHTML=sorted.map(function(e){
+    var rem=e.remMands||0;
+    return '<tr><td>'+e.date+'</td><td class="fw7">'+e.seller+'</td>' +
+      '<td class="nm">'+kgM(e.kg)+'</td><td class="nm">'+fm(rem,2)+'</td>' +
+      '<td class="nm">'+fm(rem*40,0)+' kg</td><td class="nm">'+fp(e.rt)+'</td>' +
+      '<td class="nm">'+fp(rem*e.rt)+'</td>' +
+      '<td><span class="bdg '+(rem>0?'bgg':'brr')+'">'+(rem>0?'Available':'Sold Out')+'</span></td>' +
+      '<td><button class="btn bo bxs" onclick="editStock(\'cotton\',\''+e.id+'\')">✏️</button></td>' +
+      '<td><button class="btn br2 bxs" onclick="delStock(\'cotton\',\''+e.id+'\')">✕</button></td></tr>';
+  }).join('');
+  var wrap=tb.parentElement.parentElement;
+  if(wrap) wrap.classList.add('list-scroll');
+}
+
+// ============= COMMISSION =============
+function rComm() {
+  var entries=DB.cBatches.filter(function(b){return b.sale&&b.sale.comm>0;}).slice().reverse();
+  var tot=DB.cBatches.reduce(function(s,b){return s+(b.sale&&b.sale.comm||0);},0);
+  document.getElementById('comm-ttl').textContent='Total: '+fp(tot);
+  var tb=document.getElementById('comm-tb');
+  tb.innerHTML=entries.length?entries.map(function(b){
+    return '<tr><td>'+b.date+'</td><td class="fw7">'+b.ref+'</td><td class="fw7">'+(b.sale.buyer||'-')+'</td>' +
+      '<td class="nm">'+kgM(b.sale.kg)+'</td>' +
+      '<td class="nm">'+fp(b.sale.saleAmt)+'</td>' +
+      '<td class="nm tg fw7">'+fp(b.sale.comm)+'</td></tr>';
+  }).join(''):'<tr><td colspan="6" class="empty">No commission yet</td></tr>';
+  // Wrap in scrollable (always — 10-row viewport)
+  var wrap=tb.parentElement.parentElement;
+  if(wrap) wrap.classList.add('list-scroll');
+}
+
+// ============= SLIPS =============
+function addSlips(inp, gridId, key) {
+  var grid=document.getElementById(gridId);
+  Array.from(inp.files).forEach(function(f){
+    var r=new FileReader();
+    r.onload=function(ev){
+      var idx=tmpSlips[key].length;
+      tmpSlips[key].push(ev.target.result);
+      var d=document.createElement('div'); d.className='pitem';
+      d.innerHTML='<img src="'+ev.target.result+'" onclick="vImg(\''+ev.target.result.substring(0,30)+'\')">' +
+        '<button class="pdx" onclick="this.parentElement.remove()">✕</button>';
+      d.querySelector('img').addEventListener('click',function(){vImg(ev.target.result);});
+      grid.appendChild(d);
+    };
+    r.readAsDataURL(f);
+  });
+  inp.value='';
+}
+function vImg(src) {
+  document.getElementById('m-img-s').src=src;
+  openMod('m-img');
+}
+
+// ============= DASHBOARD =============
+function rDash() {
+  var grp={};
+  DB.khata.forEach(function(e){
+    if(!grp[e.name]) grp[e.name]={g:0,t:0};
+    grp[e.name].g+=e.given; grp[e.name].t+=e.taken;
+  });
+  var recv=0,pay=0;
+  Object.values(grp).forEach(function(v){var b=v.g-v.t; if(b>0)recv+=b; else pay+=Math.abs(b);});
+  var inT=DB.cashIn.reduce(function(s,e){return s+e.amt;},0);
+  var outT=DB.cashOut.reduce(function(s,e){return s+e.amt;},0);
+  var wPL=DB.wBatches.filter(function(b){return b.sale&&b.sale.kg>0;}).reduce(function(s,b){return s+b.sale.pl;},0);
+  var cPL=DB.cBatches.filter(function(b){return b.sale&&b.sale.kg>0;}).reduce(function(s,b){return s+b.sale.pl;},0);
+  var totComm=DB.cBatches.reduce(function(s,b){return s+(b.sale&&b.sale.comm||0);},0);
+  // Agent commission (mera profit agent sale se)
+  var wAgComm=DB.wAgent.reduce(function(s,e){return s+(e.cm||0);},0);
+  var cAgComm=DB.cAgent.reduce(function(s,e){return s+(e.cm||0);},0);
+  var totAgComm=wAgComm+cAgComm;
+  document.getElementById('d-stats').innerHTML=
+    '<div class="sc grn"><h3>Receivable</h3><div class="am">'+fp(recv)+'</div><div style="font-size:10px;color:var(--tx3)">To collect</div></div>'+
+    '<div class="sc red"><h3>Payable</h3><div class="am">'+fp(pay)+'</div><div style="font-size:10px;color:var(--tx3)">To pay</div></div>'+
+    '<div class="sc"><h3>Cash Balance</h3><div class="am '+(inT-outT>=0?'tg':'tr')+'">'+fp(inT-outT)+'</div></div>'+
+    '<div class="sc blu"><h3>My Comm</h3><div class="am">'+fp(totAgComm)+'</div><div style="font-size:10px;color:var(--tx3)">From Agent Sales</div></div>';
+  var totPL=wPL+cPL+totAgComm;
+  document.getElementById('d-pl').innerHTML=
+    '<div class="sg sg3">'+
+    '<div style="background:var(--bg2);padding:11px;border-radius:8px"><div style="font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase">Wheat P&L</div>'+
+    '<div style="font-size:18px;font-weight:800;font-family:\'JetBrains Mono\',monospace;margin-top:3px" class="'+(wPL>=0?'tg':'tr')+'">'+fp(wPL)+'</div></div>'+
+    '<div style="background:var(--bg2);padding:11px;border-radius:8px"><div style="font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase">Cotton P&L</div>'+
+    '<div style="font-size:18px;font-weight:800;font-family:\'JetBrains Mono\',monospace;margin-top:3px" class="'+(cPL>=0?'tg':'tr')+'">'+fp(cPL)+'</div></div>'+
+    '<div style="background:var(--g);padding:11px;border-radius:8px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase">Total P&L</div>'+
+    '<div style="font-size:18px;font-weight:800;font-family:\'JetBrains Mono\',monospace;margin-top:3px;color:'+(totPL>=0?'#4ade80':'#f87171')+'">'+fp(totPL)+'</div></div>'+
+    '</div>';
+  var wAvail=DB.wStock.filter(function(s){return (s.remBags||0)>0;});
+  var cAvail=DB.cStock.filter(function(s){return (s.remMands||0)>0;});
+  var wBags=wAvail.reduce(function(s,e){return s+(e.remBags||0);},0);
+  var cMands=cAvail.reduce(function(s,e){return s+(e.remMands||0);},0);
+  document.getElementById('d-stk').innerHTML=
+    '<div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;margin-bottom:3px">🌾 Wheat Stock</div>'+
+    '<div style="font-size:15px;font-weight:800;font-family:\'JetBrains Mono\',monospace;color:var(--g)">'+fm(wBags,0)+' bags</div>'+
+    '<div style="font-size:11px;color:var(--tx3)">'+kgM(wBags*50)+'</div></div>'+
+    '<div><div style="font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;margin-bottom:3px">🌸 Cotton Stock</div>'+
+    '<div style="font-size:15px;font-weight:800;font-family:\'JetBrains Mono\',monospace;color:var(--g)">'+kgM(cMands*40)+'</div>'+
+    '<div style="font-size:11px;color:var(--tx3)">'+fm(cMands,2)+' mands</div></div>';
+  var rec=DB.khata.slice().reverse();
+  var dWrap = document.getElementById('d-ktb').parentElement.parentElement;
+  document.getElementById('d-ktb').innerHTML=rec.length?rec.map(function(e){
+    return '<tr><td class="fw7">'+e.name+'</td><td>'+(e.detail||'-')+'</td>'+
+      '<td class="nm tg">'+(e.given?fp(e.given):'-')+'</td>'+
+      '<td class="nm tr">'+(e.taken?fp(e.taken):'-')+'</td>'+
+      '<td class="nm fw7 '+(e.balance>=0?'tg':'tr')+'">'+fp(e.balance)+'</td></tr>';
+  }).join(''):'<tr><td colspan="5" class="empty">No entries</td></tr>';
+  // Always wrap in scrollable container (10 visible at a time)
+  if(dWrap) dWrap.classList.add('list-scroll');
+}
+
+// ============= INIT =============
+dbLoad();
+document.getElementById('cur-date').textContent = new Date().toLocaleDateString('en-PK',{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+document.querySelectorAll('input[type="date"]').forEach(function(i){if(!i.value) i.value=td();});
+rDash();
+</script>
+</body>
+</html>
